@@ -374,7 +374,7 @@ public class RSInterface {
 	        addSprite(49001, 0, "Interfaces/Teleports/background");
 	        addHoverButton(49002, "Interfaces/Teleports/close", 0, 16, 16, "Close window", 0, 49003, 1);
 	        addHoveredButton(49003, "Interfaces/Teleports/close", 1, 16, 16, 49004);
-	        addTextButton(49005, "Monster Teleports", "", 0xFF981F, true, true, tda, 2, 150); //tda[2] = bold
+	        addTextButton(49005, "Monster Teleports", "", 0xFF981F, false, true, tda, 2, 150); //tda[2] = bold
 	        addHoverText(49006, "Training Zones", "", tda, 2, 0xFF981F, false, true, 150); //tda[1] = normal
 	        addHoverText(49007, "Islands", "", tda, 2, 0xFF981F, false, true, 150);
 	        addHoverText(49008, "Desert", "", tda, 2, 0xFF981F, false, true, 150);
@@ -407,7 +407,7 @@ public class RSInterface {
 	        rsInterface.child(0, 49001, 90, 20);
 	        rsInterface.child(1, 49002, 401, 28);
 	        rsInterface.child(2, 49003, 401, 28);
-	        rsInterface.child(3, 49005, 180, 27);
+	        rsInterface.child(3, 49005, 100, 27);
 	        
 	        rsInterface.child(4, 49006, 100, 51);
 	        rsInterface.child(5, 49007, 100, 71);
@@ -487,7 +487,7 @@ public class RSInterface {
 	        addSprite(61001, 2, "Interfaces/Teleports/background");
 	        addHoverButton(61002, "Interfaces/Teleports/close", 0, 16, 16, "Close window", 0, 61003, 1);
 	        addHoveredButton(61003, "Interfaces/Teleports/close", 1, 16, 16, 61004);
-	        addTextButton(61005, "Achievements", "", 0xFF981F, true, true, tda, 2, 150); //tda[2] = bold
+	        addTextButton(61005, "Achievements", "", 0xFF981F, false, true, tda, 2, 150); //tda[2] = bold
 	        
 	        addTextButton(60025, "Titlehere", "", 0xFF981F, false, true, tda, 2, 150); //tda[2] = bold
         	addHoverText(60026, "placehere", "", tda, 1, 0xFF981F, false, true, 150);
@@ -515,7 +515,7 @@ public class RSInterface {
 	        rsInterface.child(0, 61001, 60, 20);
 	        rsInterface.child(1, 61002, 435, 28);
 	        rsInterface.child(2, 61003, 435, 28);
-	        rsInterface.child(3, 61005, 40, 28);
+	        rsInterface.child(3, 61005, 69, 28);
 	        rsInterface.child(4, 60000, 194, 49);
 	        
 	        // left side menu
