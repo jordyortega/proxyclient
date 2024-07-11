@@ -33,7 +33,7 @@ public class client extends RSApplet {
 	 * 
 	 */
 	
-	private static boolean localhost = true;
+	private static boolean localhost = false;
 	private static String IP = localhost ? "0.0.0.0" : "217.182.198.236";
 
 	public Sprite[] chatImages = new Sprite[2];
