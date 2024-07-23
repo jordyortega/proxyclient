@@ -33,13 +33,13 @@ public class client extends RSApplet {
 	 * 
 	 */
 	
-	private static boolean localhost = false;
-	private static String IP = localhost ? "0.0.0.0" : "217.182.198.236";
+	private static boolean localhost = true;
+	private static String IP = localhost ? "0.0.0.0" : "149.210.166.22";
 
 	public Sprite[] chatImages = new Sprite[2];
 	public int MapX, MapY;
 	public boolean normalLogin = true;
-	public static int clientZoom = 600;
+	public static int clientZoom = 650;
 	public static boolean hpToggled = false;
 	
 	/**
@@ -13355,7 +13355,7 @@ if (super.mouseX > 713 && super.mouseX < 765 && super.mouseY > 83 && super.mouse
 				try {
 					String text = inStream.readString();
 					int frame = inStream.method435();
-					if (text.startsWith("www.")) {
+					if (text.startsWith("www.") || text.startsWith("https://") || text.startsWith("http://")) {
 						launchURL(text);
 						pktType = -1;
 						return true;
