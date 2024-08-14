@@ -9,6 +9,10 @@ public class ItemDef_2 {
 	public static void Items(int i) {
 		ItemDef itemDef = ItemDef.forID(i);
 		switch (i) {
+		case 4151:
+			dumpInfo(i);
+			System.out.println("hi");
+			break;
 
 		case 15051:
 			itemDef.itemActions = new String[5];
@@ -25,7 +29,7 @@ public class ItemDef_2 {
 			itemDef.description = "You don't want to wear it inside-out.".getBytes();// examine.
 			break;
 			
-		case 405:
+		/*case 405:
 			itemDef.name = "2.5m Cash";
 			itemDef.description = "Opening this casket will give you 2,500,000 coins.".getBytes();
 			break;
@@ -82,7 +86,7 @@ public class ItemDef_2 {
 			itemDef.anInt165 = 491;
 			itemDef.anInt200 = 491;//21886,253,167,491
 			itemDef.modelZoom = 900;
-			break;
+			break;*/
 
 		}
 	}
@@ -109,6 +113,16 @@ public class ItemDef_2 {
 					+ itemDef.originalModelColors[1]);
 			System.out.println("Modified Color[1] : "
 					+ itemDef.modifiedModelColors[1]);
+			System.out.println("Original Color[2] : "
+					+ itemDef.originalModelColors[2]);
+			System.out.println("Modified Color[2] : "
+					+ itemDef.modifiedModelColors[2]);
+			System.out.println();
+			System.out.println("itemAction0 : "+itemDef.itemActions[0]);
+			System.out.println("itemAction1 : "+itemDef.itemActions[1]);
+			System.out.println("itemAction2 : "+itemDef.itemActions[2]);
+			System.out.println("itemAction3 : "+itemDef.itemActions[3]);
+			System.out.println("itemAction4 : "+itemDef.itemActions[4]);
 		} catch (Exception e) {
 
 		}

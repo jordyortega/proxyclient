@@ -180,15 +180,75 @@ public final class ItemDef {
 		itemDef.setDefaults();
 		itemDef.readValues(stream);
 		// ItemDef_2.Items(i);
-//		if (itemDef.originalModelColors == null) {
-//			itemDef.originalModelColors = new int [1];
-//			itemDef.modifiedModelColors = new int [1];
-//			itemDef.originalModelColors[0] = 0;
-//			itemDef.modifiedModelColors[0] = 1;
-//		}
-//		System.out.println("itemID: "+ i +" | ModelID: " + itemDef.modelID);
 		/* Customs added here? */
 		switch (i) {
+		
+		case 12100: // dragon defender
+			itemDef.itemActions = new String[5];
+            itemDef.itemActions[1] = "Wear";
+            itemDef.originalModelColors = new int[2];
+            itemDef.modifiedModelColors = new int[2];
+            itemDef.originalModelColors[0] = 920;
+            itemDef.modifiedModelColors[0] = 28;
+            itemDef.originalModelColors[1] = 926;
+            itemDef.modifiedModelColors[1] = 74;
+			itemDef.modelID = 15335;
+			itemDef.modelZoom = 490;
+			itemDef.modelRotationY = 344;
+			itemDef.modelRotationX = 192;
+			itemDef.modelOffset1 = 1;
+			itemDef.modelOffset2 = 20;
+			itemDef.anInt165 = 15413;
+			itemDef.anInt200 = 15413;
+			itemDef.name = "Dragon Defender";
+			itemDef.description = "It's a Dragon Defender.".getBytes();
+		break;
+		
+		case 6617: // dragon plate
+			itemDef.name = "Dragon Platebody";
+			itemDef.description = "It's a Dragon Platebody.".getBytes();
+            itemDef.originalModelColors = new int[3];
+            itemDef.modifiedModelColors = new int[3];
+            itemDef.originalModelColors[0] = 920;
+            itemDef.modifiedModelColors[0] = 24;
+            itemDef.originalModelColors[1] = 926;
+            itemDef.modifiedModelColors[1] = 61;
+            itemDef.originalModelColors[2] = 930;
+            itemDef.modifiedModelColors[2] = 41;
+		break;
+		case 6618: // noted
+			itemDef.name = "Dragon Platebody";
+			itemDef.description = "Swap this note at any bank for a Dragon Platebody.".getBytes();
+			itemDef.certID = 6617;
+            itemDef.certTemplateID = 799;
+            itemDef.stackable = true;
+		break;
+		
+		// whips
+		case 12000:
+			itemDef.itemActions = new String[5];
+            itemDef.itemActions[1] = "Wear";
+            itemDef.originalModelColors = new int[1];
+            itemDef.modifiedModelColors = new int[1];
+            itemDef.originalModelColors[0] = 926;
+            itemDef.modifiedModelColors[0] = 528;
+			itemDef.modelID = 5412;
+			itemDef.modelZoom = 840;
+			itemDef.modelRotationY = 280;
+			itemDef.modelRotationX = 0;
+			itemDef.modelOffset1 = -2;
+			itemDef.modelOffset2 = 56;
+			itemDef.anInt165 = 5409;
+			itemDef.anInt200 = 5409;
+			itemDef.name = "Abyssal Dragon Whip";
+			itemDef.description = "It's a Abyssal Dragon Whip.".getBytes();
+		break;
+		case 12001: // noted
+            itemDef.certID = 12000;
+            itemDef.certTemplateID = 799;
+            itemDef.stackable = true;
+		break;
+		
 //		case 4155:
 ////			itemDef.anInt377 = 1860;
 //		break;
@@ -292,6 +352,76 @@ public final class ItemDef {
 		if (itemDef.certTemplateID != -1)
 			itemDef.toNote();
 		return itemDef;
+	}
+	
+	public static void dumpInfo(int item) {
+		try {
+			ItemDef itemDef = ItemDef.forID(item);
+			try {
+				System.out.println("color to edit0 ="+itemDef.modifiedModelColors[0]);
+			} catch (Exception e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
+			try {
+				System.out.println("color to edit1 ="+itemDef.modifiedModelColors[1]);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			try {
+				System.out.println("color to edit2 ="+itemDef.modifiedModelColors[2]);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				System.out.println("color to edit3 ="+itemDef.modifiedModelColors[3]);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("name : "+itemDef.name);
+			System.out.println("modelID : " + itemDef.modelID);
+			System.out.println("modelZoom : " + itemDef.modelZoom);
+			System.out.println("modelRotationY : " + itemDef.modelRotationY);
+			System.out.println("modelRotationX : " + itemDef.modelRotationX);
+			System.out.println("modelOffset1 : "+itemDef.modelOffset1);
+			System.out.println("modelOffset2 : "+itemDef.modelOffset2);
+			System.out.println("anInt165(MALE WIELD) : "+itemDef.anInt165);
+			System.out.println("anInt200(FEMALE WIELD) : "+itemDef.anInt200);
+			/*System.out.println();
+			System.out.println("Name : "+itemDef.name);
+			System.out.println("Model : " + itemDef.modelID);
+			System.out.println("Zoom : " + itemDef.modelZoom);
+			System.out.println("RotY : " + itemDef.modelRotationY);
+			System.out.println("RotX : " + itemDef.modelRotationX);
+			System.out.println("Offset1 : "+itemDef.modelOffset1);
+			System.out.println("Offset2 : "+itemDef.modelOffset2);
+			System.out.println("anInt165(MALE WIELD) : "+itemDef.anInt165);
+			System.out.println("anInt200(FEMALE WIELD) : "+itemDef.anInt200);
+			System.out.println();
+			System.out.println("Original Color[0] : "
+					+ itemDef.originalModelColors[0]);
+			System.out.println("Modified Color[0] : "
+					+ itemDef.modifiedModelColors[0]);
+			System.out.println("Original Color[1] : "
+					+ itemDef.originalModelColors[1]);
+			System.out.println("Modified Color[1] : "
+					+ itemDef.modifiedModelColors[1]);
+			System.out.println("Original Color[2] : "
+					+ itemDef.originalModelColors[2]);
+			System.out.println("Modified Color[2] : "
+					+ itemDef.modifiedModelColors[2]);
+			System.out.println();
+			System.out.println("itemAction0 : "+itemDef.itemActions[0]);
+			System.out.println("itemAction1 : "+itemDef.itemActions[1]);
+			System.out.println("itemAction2 : "+itemDef.itemActions[2]);
+			System.out.println("itemAction3 : "+itemDef.itemActions[3]);
+			System.out.println("itemAction4 : "+itemDef.itemActions[4]);*/
+		} catch (Exception e) {
+
+		}
 	}
 
 	private void toNote() {

@@ -2915,7 +2915,7 @@ public class client extends RSApplet {
 					byte[] indexByteArray = decompressors[cacheIndex].decompress(i);
 					if(indexByteArray == null) {
 						System.out.println("Could not find a higher index, exiting dump operation");
-						break;
+						continue;
 					}
 					BufferedOutputStream gzip = new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream("./dump" +cacheIndex+ "/" +i+ ".gz")));
 					if(indexByteArray.length == 0) 
@@ -3540,9 +3540,7 @@ public class client extends RSApplet {
 							System.out.println("Floor Map Loaded: "
 									+ anIntArray1235[i]);
 							//dumpMaps(4, anIntArray1235[i]);
-							// aByteArrayArray1183[i] =
-							// FileOperations.readFile("maps/floors/" +
-							// anIntArray1235[i]);
+							// aByteArrayArray1183[i] = FileOperations.readFile("maps/floors/" + anIntArray1235[i]);
 							if (aByteArrayArray1183[i] == null)
 								aByteArrayArray1183[i] = onDemandData.buffer;
 							if (onDemandData.buffer == null)
@@ -8113,6 +8111,7 @@ public class client extends RSApplet {
 			// models();
 			//musics(); //repack music index 3
 			//dumpidx(4); //dump models
+			//dumpidx(4, 0, 3536); //dump models
 			//repackCacheIndex(1); //repack index
 			//repackCacheIndex(2); //repack index
 			//repackCacheIndex(4); //repack index
@@ -8339,6 +8338,7 @@ public class client extends RSApplet {
 			Animable_Sub5.clientInstance = this;
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
+			ItemDef.dumpInfo(4151);
 			return;
 		} catch (Exception exception) {
 			exception.printStackTrace();
