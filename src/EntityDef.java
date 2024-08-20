@@ -46,6 +46,18 @@ public final class EntityDef {
 		}
 		return entityDef;
 	}
+	
+	public static void dumpInfo(int id) {
+		try {
+			EntityDef entityDef = EntityDef.forID(id);
+			System.out.println("name : "+entityDef.name);
+			System.out.println("modelID : " + entityDef.anIntArray94[0]);
+			System.out.println("standAnim : " + entityDef.standAnim);
+			System.out.println("walkAnim : " + entityDef.walkAnim);
+		} catch (Exception e) {
+
+		}
+	}
 
 	public Model method160() {
 		if (childrenIDs != null) {

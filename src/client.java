@@ -8110,7 +8110,7 @@ public class client extends RSApplet {
 			// preloadModels();
 			// models();
 			//musics(); //repack music index 3
-			//dumpidx(4); //dump models
+			//dumpidx(1); //dump models
 			//dumpidx(4, 0, 3536); //dump models
 			//repackCacheIndex(1); //repack index
 			//repackCacheIndex(2); //repack index
@@ -8339,6 +8339,7 @@ public class client extends RSApplet {
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
 			ItemDef.dumpInfo(4151);
+			EntityDef.dumpInfo(50);;
 			return;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -8346,6 +8347,7 @@ public class client extends RSApplet {
 		}
 		loadingError = true;
 	}
+
 
 	public void method91(Stream stream, int i) {
 		while (stream.bitPosition + 10 < i * 8) {
@@ -13045,8 +13047,9 @@ if (super.mouseX > 713 && super.mouseX < 765 && super.mouseY > 83 && super.mouse
 
 			case 1:
 				for (int k4 = 0; k4 < playerArray.length; k4++)
-					if (playerArray[k4] != null)
+					if (playerArray[k4] != null) {
 						playerArray[k4].anim = -1;
+					}
 				for (int j12 = 0; j12 < npcArray.length; j12++)
 					if (npcArray[j12] != null)
 						npcArray[j12].anim = -1;
