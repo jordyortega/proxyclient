@@ -33,7 +33,7 @@ public class client extends RSApplet {
 	 * 
 	 */
 	
-	private static boolean localhost = true;
+	private static boolean localhost = false;
 	private static String IP = localhost ? "0.0.0.0" : "149.210.166.22";
 
 	public Sprite[] chatImages = new Sprite[2];
@@ -8112,9 +8112,9 @@ public class client extends RSApplet {
 			//musics(); //repack music index 3
 			//dumpidx(1); //dump models
 			//dumpidx(4, 0, 3536); //dump models
-			//repackCacheIndex(1); //repack index
+			// repackCacheIndex(1); //repack index
 			//repackCacheIndex(2); //repack index
-			//repackCacheIndex(4); //repack index
+			// repackCacheIndex(4); //repack index
 			drawLoadingText(80, "Unpacking media");
 			magicAuto = new Sprite("Gameframe/OTHER/magicAuto");
 			Sprite[] clanIcons = new Sprite[9];
@@ -8338,8 +8338,8 @@ public class client extends RSApplet {
 			Animable_Sub5.clientInstance = this;
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
-			ItemDef.dumpInfo(4151);
-			EntityDef.dumpInfo(50);;
+			ItemDef.dumpInfo(4111);
+			//EntityDef.dumpInfo(50);;
 			return;
 		} catch (Exception exception) {
 			exception.printStackTrace();
