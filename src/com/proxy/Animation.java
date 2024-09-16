@@ -14,12 +14,12 @@ public final class Animation {
 		}
 	}
 
-	public int method258(int i) {
-		int j = anIntArray355[i];
+	public int getFrameLength(int i) {
+		int j = delays[i];
 		if (j == 0) {
-			Class36 class36 = Class36.method531(anIntArray353[i]);
-			if (class36 != null)
-				j = anIntArray355[i] = class36.anInt636;
+			FrameReader frameReader = FrameReader.forID(frameIDs[i]);
+			if (frameReader != null)
+				j = delays[i] = frameReader.displayLength;
 		}
 		if (j == 0)
 			j = 1;
@@ -33,97 +33,97 @@ public final class Animation {
 			if(i == 0)
 				break;
 			if(i == 1) {
-				anInt352 = stream.readUnsignedWord();
-				anIntArray353 = new int[anInt352];
-				anIntArray354 = new int[anInt352];
-				anIntArray355 = new int[anInt352];
-				for(int i_ = 0; i_ < anInt352; i_++){
-					anIntArray353[i_] = stream.readDWord();
-					anIntArray354[i_] = -1;
+				frameCount = stream.readUnsignedWord();
+				frameIDs = new int[frameCount];
+				frameIDs2 = new int[frameCount];
+				delays = new int[frameCount];
+				for(int i_ = 0; i_ < frameCount; i_++){
+					frameIDs[i_] = stream.readDWord();
+					frameIDs2[i_] = -1;
 				}
-				for(int i_ = 0; i_ < anInt352; i_++)
-					anIntArray355[i_] = stream.readUnsignedByte();
+				for(int i_ = 0; i_ < frameCount; i_++)
+					delays[i_] = stream.readUnsignedByte();
 			}
 			else if(i == 2)
-				anInt356 = stream.readUnsignedWord();
+				loopDelay = stream.readUnsignedWord();
 			else if(i == 3) {
 				int k = stream.readUnsignedByte();
-				anIntArray357 = new int[k + 1];
+				animationFlowControl = new int[k + 1];
 				for(int l = 0; l < k; l++)
-					anIntArray357[l] = stream.readUnsignedByte();
-				anIntArray357[k] = 0x98967f;
+					animationFlowControl[l] = stream.readUnsignedByte();
+				animationFlowControl[k] = 0x98967f;
 			}
 			else if(i == 4)
-				aBoolean358 = true;
+				oneSquareAnimation = true;
 			else if(i == 5)
-				anInt359 = stream.readUnsignedByte();
+				forcedPriority = stream.readUnsignedByte();
 			else if(i == 6)
-				anInt360 = stream.readUnsignedWord();
+				leftHandItem = stream.readUnsignedWord();
 			else if(i == 7)
-				anInt361 = stream.readUnsignedWord();
+				rightHandItem = stream.readUnsignedWord();
 			else if(i == 8)
-				anInt362 = stream.readUnsignedByte();
+				frameStep = stream.readUnsignedByte();
 			else if(i == 9)
-				anInt363 = stream.readUnsignedByte();
+				resetWhenWalk = stream.readUnsignedByte();
 			else if(i == 10)
-				anInt364 = stream.readUnsignedByte();
+				priority = stream.readUnsignedByte();
 			else if(i == 11)
-				anInt365 = stream.readUnsignedByte();
+				delayType = stream.readUnsignedByte();
 			else 
 				System.out.println("Unrecognized seq.dat config code: "+i);
 		} while(true);
-		if(anInt352 == 0)
+		if(frameCount == 0)
 		{
-			anInt352 = 1;
-			anIntArray353 = new int[1];
-			anIntArray353[0] = -1;
-			anIntArray354 = new int[1];
-			anIntArray354[0] = -1;
-			anIntArray355 = new int[1];
-			anIntArray355[0] = -1;
+			frameCount = 1;
+			frameIDs = new int[1];
+			frameIDs[0] = -1;
+			frameIDs2 = new int[1];
+			frameIDs2[0] = -1;
+			delays = new int[1];
+			delays[0] = -1;
 		}
-		if(anInt363 == -1)
-			if(anIntArray357 != null)
-				anInt363 = 2;
+		if(resetWhenWalk == -1)
+			if(animationFlowControl != null)
+				resetWhenWalk = 2;
 			else
-				anInt363 = 0;
-		if(anInt364 == -1)
+				resetWhenWalk = 0;
+		if(priority == -1)
 		{
-			if(anIntArray357 != null)
+			if(animationFlowControl != null)
 			{
-				anInt364 = 2;
+				priority = 2;
 				return;
 			}
-			anInt364 = 0;
+			priority = 0;
 		}
 	}
 
 	public Animation() {
-		anInt356 = -1;
-		aBoolean358 = false;
-		anInt359 = 5;
-		anInt360 = -1;
-		anInt361 = -1;
-		anInt362 = 99;
-		anInt363 = -1;
-		anInt364 = -1;
-		anInt365 = 2;
+		loopDelay = -1;
+		oneSquareAnimation = false;
+		forcedPriority = 5;
+		leftHandItem = -1;
+		rightHandItem = -1;
+		frameStep = 99;
+		resetWhenWalk = -1;
+		priority = -1;
+		delayType = 2;
 	}
 
 	public static Animation anims[];
-	public int anInt352;
-	public int anIntArray353[];
-	public int anIntArray354[];
-	public int[] anIntArray355;
-	public int anInt356;
-	public int anIntArray357[];
-	public boolean aBoolean358;
-	public int anInt359;
-	public int anInt360;
-	public int anInt361;
-	public int anInt362;
-	public int anInt363;
-	public int anInt364;
-	public int anInt365;
+	public int frameCount;
+	public int frameIDs[];
+	public int frameIDs2[];
+	public int[] delays;
+	public int loopDelay;
+	public int animationFlowControl[];
+	public boolean oneSquareAnimation;
+	public int forcedPriority;
+	public int leftHandItem;
+	public int rightHandItem;
+	public int frameStep;
+	public int resetWhenWalk;
+	public int priority;
+	public int delayType;
 	public static int anInt367;
 }

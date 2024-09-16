@@ -81,8 +81,8 @@ final class RSImageProducer
 	}
 
 	public final int[] anIntArray315;
-	private final int anInt316;
-	private final int anInt317;
+	final int anInt316;
+	final int anInt317;
 	private final ColorModel aColorModel318;
 	private ImageConsumer anImageConsumer319;
 	private final Image anImage320;

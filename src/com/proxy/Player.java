@@ -14,18 +14,18 @@ public final class Player extends Entity {
 		model.aBoolean1659 = true;
 		if(aBoolean1699)
 			return model;
-		if(super.anInt1520 != -1 && super.anInt1521 != -1)
+		if(super.anInt1520 != -1 && super.currentAnim != -1)
 		{
 			SpotAnim spotAnim = SpotAnim.cache[super.anInt1520];
 			Model model_2 = spotAnim.getModel();
 			if(model_2 != null)
 			{
-				Model model_3 = new Model(true, Class36.method532(super.anInt1521), false, model_2);
-				model_3.method475(0, -super.anInt1524, 0);
+				Model model_3 = new Model(true, FrameReader.isNullFrame(super.currentAnim), false, model_2);
+				model_3.method475(0, -super.graphicHeight, 0);
 				model_3.method469();
-				model_3.method470(spotAnim.aAnimation_407.anIntArray353[super.anInt1521]);
-				model_3.anIntArrayArray1658 = null;
-				model_3.anIntArrayArray1657 = null;
+				model_3.applyTransform(spotAnim.animation.frameIDs[super.currentAnim]);
+				model_3.triangleSkin = null;
+				model_3.vertexSkin = null;
 				if(spotAnim.anInt410 != 128 || spotAnim.anInt411 != 128)
 					model_3.method478(spotAnim.anInt410, spotAnim.anInt410, spotAnim.anInt411);
 				//model_3.method479(64 + spotAnim.anInt413, 850 + spotAnim.anInt414, -30, -50, -30, true);
@@ -38,9 +38,9 @@ public final class Player extends Entity {
 		}
 		if(aModel_1714 != null)
 		{
-			if(client.loopCycle >= anInt1708)
+			if(Client.loopCycle >= anInt1708)
 				aModel_1714 = null;
-			if(client.loopCycle >= anInt1707 && client.loopCycle < anInt1708)
+			if(Client.loopCycle >= anInt1707 && Client.loopCycle < anInt1708)
 			{
 				Model model_1 = aModel_1714;
 				model_1.method475(anInt1711 - super.x, anInt1712 - anInt1709, anInt1713 - super.y);
@@ -117,14 +117,14 @@ public final class Player extends Entity {
 		for(int l = 0; l < 5; l++)
 		{
 			int j1 = stream.readUnsignedByte();
-			if(j1 < 0 || j1 >= client.anIntArrayArray1003[l].length)
+			if(j1 < 0 || j1 >= Client.anIntArrayArray1003[l].length)
 				j1 = 0;
 			anIntArray1700[l] = j1;
 		}
 
-		super.anInt1511 = stream.readUnsignedWord();
-		if(super.anInt1511 == 65535)
-			super.anInt1511 = -1;
+		super.standAnim = stream.readUnsignedWord();
+		if(super.standAnim == 65535)
+			super.standAnim = -1;
 		super.anInt1512 = stream.readUnsignedWord();
 		if(super.anInt1512 == 65535)
 			super.anInt1512 = -1;
@@ -173,40 +173,71 @@ public final class Player extends Entity {
 	{
 		if(desc != null)
 		{
-			int j = -1;
-			if(super.anim >= 0 && super.anInt1529 == 0)
-				j = Animation.anims[super.anim].anIntArray353[super.anInt1527];
-			else
-			if(super.anInt1517 >= 0)
-				j = Animation.anims[super.anInt1517].anIntArray353[super.anInt1518];
-			Model model = desc.method164(-1, j, null);
+			int currentFrame = -1;
+			int nextFrame = -1;
+			int cycle1 = 0;
+			int cycle2 = 0;
+			if(super.anim >= 0 && super.animationDelay == 0) {
+				Animation animation = Animation.anims[super.anim];
+				currentFrame = animation.frameIDs[super.currentAnimFrame];
+				if(Client.instance.tweenAnims && super.nextAnimationFrame != -1) {
+					nextFrame = animation.frameIDs[super.nextAnimationFrame];
+					cycle1 = animation.delays[super.currentAnimFrame];
+					cycle2 = super.anInt1528;
+				}
+			} else if(super.entityAnimation >= 0) {
+				Animation animation = Animation.anims[super.entityAnimation];
+				currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
+				if(Client.instance.tweenAnims && super.nextAnimationFrame != -1) {
+					nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
+					cycle1 = animation.delays[super.currentForcedAnimFrame];
+					cycle2 = super.anInt1519;
+				}
+			}
+			Model model = desc.method164(-1, currentFrame, null, nextFrame, cycle1, cycle2);
 			return model;
 		}
 		long l = aLong1718;
-		int k = -1;
+		int currentFrame = -1;
+		int nextFrame = -1;
+		int cycle1 = 0;
+		int cycle2 = 0;
 		int i1 = -1;
 		int j1 = -1;
 		int k1 = -1;
-		if(super.anim >= 0 && super.anInt1529 == 0)
+		if(super.anim >= 0 && super.animationDelay == 0)
 		{
 			Animation animation = Animation.anims[super.anim];
-			k = animation.anIntArray353[super.anInt1527];
-			if(super.anInt1517 >= 0 && super.anInt1517 != super.anInt1511)
-				i1 = Animation.anims[super.anInt1517].anIntArray353[super.anInt1518];
-			if(animation.anInt360 >= 0)
+			currentFrame = animation.frameIDs[super.currentAnimFrame];
+			if(Client.instance.tweenAnims && super.nextAnimationFrame != -1) {
+				try {
+					nextFrame = animation.frameIDs[super.nextAnimationFrame];
+					cycle1 = animation.delays[super.currentAnimFrame];
+					cycle2 = super.anInt1528;
+				} catch (Exception e) {}
+			}
+			if(super.entityAnimation >= 0 && super.entityAnimation != super.standAnim)
+				i1 = Animation.anims[super.entityAnimation].frameIDs[super.currentForcedAnimFrame];
+			if(animation.leftHandItem >= 0)
 			{
-				j1 = animation.anInt360;
+				j1 = animation.leftHandItem;
 				l += j1 - equipment[5] << 40;
 			}
-			if(animation.anInt361 >= 0)
+			if(animation.rightHandItem >= 0)
 			{
-				k1 = animation.anInt361;
+				k1 = animation.rightHandItem;
 				l += k1 - equipment[3] << 48;
 			}
 		} else
-		if(super.anInt1517 >= 0)
-			k = Animation.anims[super.anInt1517].anIntArray353[super.anInt1518];
-		Model model_1 = (Model) mruNodes.insertFromCache(l);
+		if(super.entityAnimation >= 0) {
+			Animation animation = Animation.anims[super.entityAnimation];
+			currentFrame = animation.frameIDs[super.currentForcedAnimFrame];
+			if(Client.instance.tweenAnims && super.nextAnimationFrame != -1) {
+				nextFrame = animation.frameIDs[super.nextIdleAnimationFrame];
+				cycle1 = animation.delays[super.currentForcedAnimFrame];
+				cycle2 = super.anInt1519;
+			}
+		}		Model model_1 = (Model) mruNodes.insertFromCache(l);
 		if(model_1 == null)
 		{
 			boolean flag = false;
@@ -260,9 +291,9 @@ public final class Player extends Entity {
 			for(int j3 = 0; j3 < 5; j3++)
 				if(anIntArray1700[j3] != 0)
 				{
-					model_1.method476(client.anIntArrayArray1003[j3][0], client.anIntArrayArray1003[j3][anIntArray1700[j3]]);
+					model_1.method476(Client.anIntArrayArray1003[j3][0], Client.anIntArrayArray1003[j3][anIntArray1700[j3]]);
 					if(j3 == 1)
-						model_1.method476(client.anIntArray1204[0], client.anIntArray1204[anIntArray1700[j3]]);
+						model_1.method476(Client.anIntArray1204[0], Client.anIntArray1204[anIntArray1700[j3]]);
 				}
 
 			model_1.method469();
@@ -274,15 +305,16 @@ public final class Player extends Entity {
 		if(aBoolean1699)
 			return model_1;
 		Model model_2 = Model.aModel_1621;
-		model_2.method464(model_1, Class36.method532(k) & Class36.method532(i1));
-		if(k != -1 && i1 != -1)
-			model_2.method471(Animation.anims[super.anim].anIntArray357, i1, k);
+		model_2.method464(model_1, FrameReader.isNullFrame(currentFrame) & FrameReader.isNullFrame(i1));
+		if (currentFrame != -1 && i1 != -1)
+			model_2.method471(Animation.anims[super.anim].animationFlowControl, i1, currentFrame);
+		else if (currentFrame != -1 && nextFrame != -1 && Client.instance.tweenAnims)
+			model_2.applyTransform(currentFrame, nextFrame, cycle1, cycle2);
 		else
-		if(k != -1)
-			model_2.method470(k);
+			model_2.applyTransform(currentFrame);
 		model_2.method466();
-		model_2.anIntArrayArray1658 = null;
-		model_2.anIntArrayArray1657 = null;
+		model_2.triangleSkin = null;
+		model_2.vertexSkin = null;
 		return model_2;
 	}
 
@@ -333,9 +365,9 @@ public final class Player extends Entity {
 		for(int j1 = 0; j1 < 5; j1++)
 			if(anIntArray1700[j1] != 0)
 			{
-				model.method476(client.anIntArrayArray1003[j1][0], client.anIntArrayArray1003[j1][anIntArray1700[j1]]);
+				model.method476(Client.anIntArrayArray1003[j1][0], Client.anIntArrayArray1003[j1][anIntArray1700[j1]]);
 				if(j1 == 1)
-					model.method476(client.anIntArray1204[0], client.anIntArray1204[anIntArray1700[j1]]);
+					model.method476(Client.anIntArray1204[0], Client.anIntArray1204[anIntArray1700[j1]]);
 			}
 
 		return model;

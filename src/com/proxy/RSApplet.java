@@ -25,18 +25,42 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	 * 
 	 */
 	private static final long serialVersionUID = 1473917011474991756L;
-	final void createClientFrame(int i, int j) {
-		myWidth = j;
-		myHeight = i;
-		gameFrame = new RSFrame(this, myWidth, myHeight);
+	public void rebuildFrame(boolean undecorated, int width, int height, boolean resizable, boolean full) {
+		boolean createdByApplet = (isApplet && !full);
+		myWidth = width;
+		myHeight = height;
+		if(gameFrame != null) {
+			gameFrame.dispose();
+		}
+		if (!createdByApplet){
+			gameFrame = new RSFrame(this, width, height, undecorated, resizable);
+			gameFrame.addWindowListener(this);
+		}
+		graphics = (createdByApplet ? this : gameFrame).getGraphics();
+		if (!createdByApplet) {
+			getGameComponent().addMouseWheelListener(this);
+			getGameComponent().addMouseListener(this);
+			getGameComponent().addMouseMotionListener(this);
+			getGameComponent().addKeyListener(this);
+			getGameComponent().addFocusListener(this);
+		}
+	}
+
+	final void createClientFrame(int w, int h) {
+		isApplet = false;
+		myWidth = w;
+		myHeight = h;
+		gameFrame = new RSFrame(this, myWidth, myHeight, Client.clientSize == 2, Client.clientSize == 1);
+		gameFrame.setFocusTraversalKeysEnabled(false);
 		graphics = getGameComponent().getGraphics();
 		fullGameScreen = new RSImageProducer(myWidth, myHeight, getGameComponent());
 		startRunnable(this, 1);
 	}
 
-	final void initClientFrame(int i, int j) {
-		myWidth = j;
-		myHeight = i;
+	final void initClientFrame(int w, int h) {
+		isApplet = true;
+		myWidth = w;
+		myHeight = h;
 		graphics = getGameComponent().getGraphics();
 		fullGameScreen = new RSImageProducer(myWidth, myHeight, getGameComponent());
 		startRunnable(this, 1);
@@ -45,33 +69,33 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	public void mouseWheelMoved(MouseWheelEvent event) {
 		int rotation = event.getWheelRotation();
 		handleInterfaceScrolling(event);
-		if(mouseX > 0 && mouseX < 512 && mouseY > 503 - 165 && mouseY < 503 - 25) {
-			int scrollPos = client.anInt1089;
+		if(mouseX > 0 && mouseX < 512 && mouseY > Client.clientHeight - 165 && mouseY < Client.clientHeight - 25) {
+			int scrollPos = Client.anInt1089;
 			scrollPos -= rotation * 30;		
 			if(scrollPos < 0)
 				scrollPos = 0;
-			if(scrollPos > client.anInt1211 - 110)
-				scrollPos = client.anInt1211 - 110;
-			if(client.anInt1089 != scrollPos) {
-				client.anInt1089 = scrollPos;
-				client.inputTaken = true;
+			if(scrollPos > Client.anInt1211 - 110)
+				scrollPos = Client.anInt1211 - 110;
+			if(Client.anInt1089 != scrollPos) {
+				Client.anInt1089 = scrollPos;
+				Client.inputTaken = true;
 			}
 		}
 		if (event.isControlDown()) {
 			if(mouseWheelDown) {
-				client.clientZoom = 600;
+				Client.clientZoom = 600;
 				return;
 			}
 		if (rotation < 0) {
-			if (client.clientZoom == 150) {
+			if (Client.clientZoom == 150) {
 				return;
 			}
-			client.clientZoom -= 50;
+			Client.clientZoom -= 50;
 		} else {
-			if (client.clientZoom == 1300) {
+			if (Client.clientZoom == 1300) {
 				return;
 			}
-			client.clientZoom += 50;
+			Client.clientZoom += 50;
 		}
 	}
 	}
@@ -85,7 +109,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		int offsetY = 0;
 		int childID = 0;
 		/* Tab interface scrolling */
-		int tabInterfaceID = client.tabInterfaceIDs[client.tabID];
+		int tabInterfaceID = Client.tabInterfaceIDs[Client.tabID];
 		if (tabInterfaceID != -1) {
 			RSInterface tab = RSInterface.interfaceCache[tabInterfaceID];
 			offsetX = 765 - 218;
@@ -102,13 +126,13 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			}
 			if (mouseX > offsetX + positionX && mouseY > offsetY + positionY && mouseX < offsetX + positionX + width && mouseY < offsetY + positionY + height) {
 				RSInterface.interfaceCache[tab.children[childID]].scrollPosition += rotation * 30;
-				client.tabAreaAltered = true;
-				client.needDrawTabArea = true;
+				Client.tabAreaAltered = true;
+				Client.needDrawTabArea = true;
 			}
 		}
 		/* Main interface scrolling */
-		if (client.openInterfaceID != -1) {
-			RSInterface rsi = RSInterface.interfaceCache[client.openInterfaceID];
+		if (Client.openInterfaceID != -1) {
+			RSInterface rsi = RSInterface.interfaceCache[Client.openInterfaceID];
 			offsetX = 4;
 			offsetY = 4;
 			for (int index = 0; index < rsi.children.length; index++) {
@@ -321,7 +345,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			mouseWheelY = j;
 			if (mouseevent.isControlDown()) {
 				if(mouseWheelDown) {
-					client.clientZoom = 600;
+					Client.clientZoom = 600;
 					return;
 				}
 			}
@@ -422,43 +446,43 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
 		if (i == KeyEvent.VK_ESCAPE) {
-			client.setTab(3);
+			Client.setTab(3);
 		    }
 		    if (i == KeyEvent.VK_F1) {
-			client.setTab(0);
+			Client.setTab(0);
 		    }
 		    if (i == KeyEvent.VK_F2) {
-			client.setTab(1);
+			Client.setTab(1);
 		    }
 		    if (i == KeyEvent.VK_F3) {
-			client.setTab(2);
+			Client.setTab(2);
 		    }
 		    if (i == KeyEvent.VK_F4) {
-			client.setTab(4);
+			Client.setTab(4);
 		    }
 		    if (i == KeyEvent.VK_F5) {
-			client.setTab(5);
+			Client.setTab(5);
 		    }
 		    if (i == KeyEvent.VK_F6) {
-			client.setTab(6);
+			Client.setTab(6);
 		    }
 		    if (i == KeyEvent.VK_F7) {
-			client.setTab(7);
+			Client.setTab(7);
 		    }
 		    if (i == KeyEvent.VK_F8) {
-			client.setTab(8);
+			Client.setTab(8);
 		    }
 		    if (i == KeyEvent.VK_F9) {
-			client.setTab(9);
+			Client.setTab(9);
 		    }
 		    if (i == KeyEvent.VK_F10) {
-			client.setTab(11);
+			Client.setTab(11);
 		    }
 		    if (i == KeyEvent.VK_F11) {
-			client.setTab(12);
+			Client.setTab(12);
 		    }
 		    if (i == KeyEvent.VK_F12) {
-			client.setTab(13);
+			Client.setTab(13);
 		    }
 		if(j < 30)
 			j = 0;
@@ -504,6 +528,10 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		char c = keyevent.getKeyChar();
+		if(i == 17)
+		{
+			resizing = false;
+		}
 		if(c < '\036')
 			c = '\0';
 		if(i == 37)
@@ -628,9 +656,10 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 
 	void drawLoadingText(int i, String s)
 	{
+		Client.getClient().checkSize();
 		while(graphics == null)
 		{
-			graphics = getGameComponent().getGraphics();
+			graphics = (isApplet ? this : gameFrame).getGraphics();
 			try
 			{
 				getGameComponent().repaint();
@@ -649,23 +678,25 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		if(shouldClearScreen)
 		{
 			graphics.setColor(Color.black);
-			graphics.fillRect(0, 0, myWidth, myHeight);
+			graphics.fillRect(0, 0, Client.clientWidth, Client.clientHeight);
 			shouldClearScreen = false;
 		}
 		Color color = new Color(140, 17, 17);
-		int j = myHeight / 2 - 18;
+		int y = Client.clientHeight / 2 - 18;
 		graphics.setColor(color);
-		graphics.drawRect(myWidth / 2 - 152, j, 304, 34);
-		graphics.fillRect(myWidth / 2 - 150, j + 2, i * 3, 30);
+		graphics.drawRect(Client.clientWidth / 2 - 152, y, 304, 34);
+		graphics.fillRect(Client.clientWidth / 2 - 150, y + 2, i * 3, 30);
 		graphics.setColor(Color.black);
-			graphics.fillRect((myWidth / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
+			graphics.fillRect((Client.clientWidth  / 2 - 150) + i * 3, y + 2, 300 - i * 3, 30);
 			graphics.setFont(font);
 			graphics.setColor(Color.white);
-			graphics.drawString(s, (myWidth - fontmetrics.stringWidth(s)) / 2, j + 22);
+			graphics.drawString(s, (Client.clientWidth - fontmetrics.stringWidth(s)) / 2, y + 22);
+
 	}
 
 	RSApplet()
 	{
+		resizing = true;
 		delayTime = 20;
 		minDelay = 1;
 		aLongArray7 = new long[10];
@@ -675,7 +706,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		keyArray = new int[128];
 		charQueue = new int[128];
 	}
-
+	public boolean resizing;
 	private int anInt4;
 	private int delayTime;
 	int minDelay;
@@ -706,4 +737,5 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	private int readIndex;
 	private int writeIndex;
 	public static int anInt34;
+	public boolean isApplet;
 }

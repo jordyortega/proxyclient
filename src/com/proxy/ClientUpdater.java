@@ -22,7 +22,7 @@ public class ClientUpdater implements Runnable {
 	public static final String VERSION_URL = "https://web3scape.io/game/version/ClientVersion.dat";
 	public static final String VERSION_FILE = signlink.findcachedir() + "ClientVersion.dat";
 	
-	private ClientUpdater.GUI g;
+	private GUI g;
 	
 	public double getCurrentVersion(){
 		try {
@@ -78,7 +78,7 @@ public class ClientUpdater implements Runnable {
 				    "Update found! If this is first time opening client, click NO.",
 				    JOptionPane.YES_NO_OPTION);
 			if(n == 0){
-				g = new ClientUpdater.GUI();
+				g = new GUI();
 				g.setLocationRelativeTo(null);
 				g.setVisible(true);
 				updateClient();

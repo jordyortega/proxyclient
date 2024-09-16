@@ -110,7 +110,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
 	public int mapAmount = 0;
 
-    public void start(StreamLoader streamLoader, client client1)
+    public void start(StreamLoader streamLoader, Client client1)
     {
         byte[] abyte2 = streamLoader.getDataForName("map_index");
         Stream stream2 = new Stream(abyte2);
@@ -178,7 +178,7 @@ mapAmount++;
 				if(l - openSocketTime < 4000L)
 					return;
 				openSocketTime = l;
-				socket = clientInstance.openSocket(43594 + client.portOff);
+				socket = clientInstance.openSocket(43594 + Client.portOff);
 				inputStream = socket.getInputStream();
 				outputStream = socket.getOutputStream();
 				outputStream.write(15);
@@ -621,7 +621,7 @@ _ex.printStackTrace();
 	private final byte[] ioBuffer;
 	public int onDemandCycle;
 	private final byte[][] fileStatus;
-	private client clientInstance;
+	private Client clientInstance;
 	private final NodeList aClass19_1344;
 	private int completedSize;
 	private int expectedSize;

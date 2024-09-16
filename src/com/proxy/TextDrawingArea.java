@@ -71,12 +71,12 @@ public final class TextDrawingArea extends DrawingArea {
 		method385(i, s, k, l - method384(s) / 2);
 	}
 
-	public void method382(int i, int j, String s, int l, boolean flag) {
-		method389(flag, j - getTextWidth(s) / 2, i, s, l);
+	public void method382(int i, int x, String s, int y, boolean flag) {
+		method389(flag, x - getTextWidth(s) / 2, i, s, y);
 	}
 
-	public void drawChatInput(int i, int j, String s, int l, boolean flag) {
-		method389(flag, j, i, s, l);
+	public void drawChatInput(int i, int j, String s, int y, boolean flag) {
+		method389(flag, j, i, s, y);
 	}
 
 	public int getTextWidth(String s) {
@@ -100,14 +100,14 @@ public final class TextDrawingArea extends DrawingArea {
 		return j;
 	}
 
-	public void method385(int i, String s, int j, int l) {
+	public void method385(int i, String s, int y, int l) {
 		if(s == null)
 			return;
-		j -= anInt1497;
+		y -= anInt1497;
 		for(int i1 = 0; i1 < s.length(); i1++) {
 			char c = s.charAt(i1);
 			if(c != ' ')
-				method392(aByteArrayArray1491[c], l + anIntArray1494[c], j + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], i);
+				method392(aByteArrayArray1491[c], l + anIntArray1494[c], y + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], i);
 			l += anIntArray1496[c];
 		}
 	}
@@ -154,12 +154,12 @@ public final class TextDrawingArea extends DrawingArea {
 		}
 	}
 
-	public void method389(boolean flag1, int i, int j, String s, int k) {
+	public void method389(boolean flag1, int i, int j, String s, int y) {
 		aBoolean1499 = false;
 		int l = i;
 		if(s == null)
 			return;
-		k -= anInt1497;
+		y -= anInt1497;
 		for(int i1 = 0; i1 < s.length(); i1++)
 			if(s.charAt(i1) == '@' && i1 + 4 < s.length() && s.charAt(i1 + 4) == '@') {
 				int j1 = getColorByName(s.substring(i1 + 1, i1 + 4));
@@ -170,13 +170,13 @@ public final class TextDrawingArea extends DrawingArea {
 				char c = s.charAt(i1);
 				if(c != ' ') {
 					if(flag1)
-					method392(aByteArrayArray1491[c], i + anIntArray1494[c] + 1, k + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
-					method392(aByteArrayArray1491[c], i + anIntArray1494[c], k + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], j);
+					method392(aByteArrayArray1491[c], i + anIntArray1494[c] + 1, y + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
+					method392(aByteArrayArray1491[c], i + anIntArray1494[c], y + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], j);
 				}
 				i += anIntArray1496[c];
 			}
 		if(aBoolean1499)
-			DrawingArea.method339(k + (int)((double)anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
+			DrawingArea.method339(y + (int)((double)anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
 	}
 
 	public void method390(int i, int j, String s, int k, int i1) {

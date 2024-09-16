@@ -483,9 +483,9 @@ public final class ItemDef {
 				return null;
 		}
 		Sprite enabledSprite = new Sprite(32, 32);
-		int k1 = Texture.textureInt1;
-		int l1 = Texture.textureInt2;
-		int ai[] = Texture.anIntArray1472;
+		int k1 = Rasterizer.originX;
+		int l1 = Rasterizer.originY;
+		int ai[] = Rasterizer.rowOffsets;
 		int ai1[] = DrawingArea.pixels;
 		int i2 = DrawingArea.width;
 		int j2 = DrawingArea.height;
@@ -493,17 +493,17 @@ public final class ItemDef {
 		int l2 = DrawingArea.bottomX;
 		int i3 = DrawingArea.topY;
 		int j3 = DrawingArea.bottomY;
-		Texture.aBoolean1464 = false;
+		Rasterizer.aBoolean1464 = false;
 		DrawingArea.initDrawingArea(32, 32, enabledSprite.myPixels);
 		DrawingArea.method336(32, 0, 0, 0, 32);
-		Texture.method364();
+		Rasterizer.method364();
 		int k3 = itemDef.modelZoom;
 		if (k == -1)
 			k3 = (int) ((double) k3 * 1.5D);
 		if (k > 0)
 			k3 = (int) ((double) k3 * 1.04D);
-		int l3 = Texture.anIntArray1470[itemDef.modelRotationY] * k3 >> 16;
-		int i4 = Texture.anIntArray1471[itemDef.modelRotationY] * k3 >> 16;
+		int l3 = Rasterizer.SINE[itemDef.modelRotationY] * k3 >> 16;
+		int i4 = Rasterizer.COSINE[itemDef.modelRotationY] * k3 >> 16;
 		model.method482(itemDef.modelRotationX, itemDef.anInt204,
 				itemDef.modelRotationY, itemDef.modelOffset1, l3
 						+ model.modelHeight / 2 + itemDef.modelOffset2, i4
@@ -569,11 +569,11 @@ public final class ItemDef {
 		if (k == 0)
 			mruNodes1.removeFromCache(enabledSprite, i);
 		DrawingArea.initDrawingArea(j2, i2, ai1);
-		DrawingArea.setDrawingArea(j3, k2, l2, i3);
-		Texture.textureInt1 = k1;
-		Texture.textureInt2 = l1;
-		Texture.anIntArray1472 = ai;
-		Texture.aBoolean1464 = true;
+		DrawingArea.setDrawingArea(k2, i3, l2, j3);
+		Rasterizer.originX = k1;
+		Rasterizer.originY = l1;
+		Rasterizer.rowOffsets = ai;
+		Rasterizer.aBoolean1464 = true;
 		if (itemDef.stackable)
 			enabledSprite.maxWidth = 33;
 		else

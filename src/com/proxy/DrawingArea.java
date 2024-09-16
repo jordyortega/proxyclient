@@ -9,7 +9,7 @@ public class DrawingArea extends NodeSub {
 		pixels = ai;
 		width = j;
 		height = i;
-		setDrawingArea(i, 0, j, 0);
+		setDrawingArea(0, 0, j, i);
 	}
 
 	public static void defaultDrawingAreaSize()
@@ -22,20 +22,20 @@ public class DrawingArea extends NodeSub {
 			centerY = bottomX / 2;
 	}
 
-	public static void setDrawingArea(int i, int j, int k, int l)
+	public static void setDrawingArea(int left, int top, int right, int bottom)
 	{
-		if(j < 0)
-			j = 0;
-		if(l < 0)
-			l = 0;
-		if(k > width)
-			k = width;
-		if(i > height)
-			i = height;
-		topX = j;
-		topY = l;
-		bottomX = k;
-		bottomY = i;
+		if(left < 0)
+			left = 0;
+		if(top < 0)
+			top = 0;
+		if(right > width)
+			right = width;
+		if(bottom > height)
+			bottom = height;
+		topX = left;
+		topY = top;
+		bottomX = right;
+		bottomY = bottom;
 		centerX = bottomX;
 		centerY = bottomX / 2;
 		anInt1387 = bottomY / 2;
@@ -100,27 +100,27 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 
-	public static void drawPixels(int i, int j, int k, int l, int i1)
+	public static void drawPixels(int i, int y, int x, int l, int width)
 	{
-		if(k < topX)
+		if(x < topX)
 		{
-			i1 -= topX - k;
-			k = topX;
+			width -= topX - x;
+			x = topX;
 		}
-		if(j < topY)
+		if(y < topY)
 		{
-			i -= topY - j;
-			j = topY;
+			i -= topY - y;
+			y = topY;
 		}
-		if(k + i1 > bottomX)
-			i1 = bottomX - k;
-		if(j + i > bottomY)
-			i = bottomY - j;
-		int k1 = width - i1;
-		int l1 = k + j * width;
+		if(x + width > bottomX)
+			width = bottomX - x;
+		if(y + i > bottomY)
+			i = bottomY - y;
+		int k1 = DrawingArea.width - width;
+		int l1 = x + y * DrawingArea.width;
 		for(int i2 = -i; i2 < 0; i2++)
 		{
-			for(int j2 = -i1; j2 < 0; j2++)
+			for(int j2 = -width; j2 < 0; j2++)
 				pixels[l1++] = l;
 
 			l1 += k1;
@@ -147,9 +147,9 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 
-	public static void method339(int i, int j, int k, int l)
+	public static void method339(int y, int j, int k, int l)
 	{
-		if(i < topY || i >= bottomY)
+		if(y < topY || y >= bottomY)
 			return;
 		if(l < topX)
 		{
@@ -158,7 +158,7 @@ public class DrawingArea extends NodeSub {
 		}
 		if(l + k > bottomX)
 			k = bottomX - l;
-		int i1 = l + i * width;
+		int i1 = l + y * width;
 		for(int j1 = 0; j1 < k; j1++)
 			pixels[i1 + j1] = j;
 
@@ -273,4 +273,35 @@ public class DrawingArea extends NodeSub {
 	public static int centerY;
 	public static int anInt1387;
 
+	public static void drawAlphaBox(int x, int y, int lineWidth, int lineHeight, int color, int alpha) {// drawAlphaHorizontalLine
+		if (y < topY) {
+			if (y > (topY - lineHeight)) {
+				lineHeight -= (topY - y);
+				y += (topY - y);
+			} else {
+				return;
+			}
+		}
+		if (y + lineHeight > bottomY) {
+			lineHeight -= y + lineHeight - bottomY;
+		}
+		//if (y >= bottomY - lineHeight)
+		//return;
+		if (x < topX) {
+			lineWidth -= topX - x;
+			x = topX;
+		}
+		if (x + lineWidth > bottomX)
+			lineWidth = bottomX - x;
+		for(int yOff = 0; yOff < lineHeight; yOff++) {
+			int i3 = x + (y + (yOff)) * DrawingArea.width;
+			for (int j3 = 0; j3 < lineWidth; j3++) {
+				drawAlpha(pixels, i3++, color, color, alpha);
+			}
+		}
+	}
+
+	protected static void drawAlpha(int[] pixels, int index, int value, int color, int alpha) {
+		pixels[index] = value;
+	}
 }

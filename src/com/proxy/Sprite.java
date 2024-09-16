@@ -14,6 +14,8 @@ import com.proxy.sign.signlink;
 
 public final class Sprite extends DrawingArea {
 
+	public int xPosition, yPosition;
+
 	public Sprite(int i, int j) {
 		myPixels = new int[i * j];
 		myWidth = maxWidth = i;
@@ -497,39 +499,39 @@ public final class Sprite extends DrawingArea {
 		}
 	}
 
-	public void drawSprite(int i, int k)
+	public void drawSprite(int x, int y)
 	{
-		i += anInt1442;
-		k += anInt1443;
-		int l = i + k * DrawingArea.width;
+		x += anInt1442;
+		y += anInt1443;
+		int l = x + y * DrawingArea.width;
 		int i1 = 0;
 		int j1 = myHeight;
 		int k1 = myWidth;
 		int l1 = DrawingArea.width - k1;
 		int i2 = 0;
-		if(k < DrawingArea.topY)
+		if(y < DrawingArea.topY)
 		{
-			int j2 = DrawingArea.topY - k;
+			int j2 = DrawingArea.topY - y;
 			j1 -= j2;
-			k = DrawingArea.topY;
+			y = DrawingArea.topY;
 			i1 += j2 * k1;
 			l += j2 * DrawingArea.width;
 		}
-		if(k + j1 > DrawingArea.bottomY)
-			j1 -= (k + j1) - DrawingArea.bottomY;
-		if(i < DrawingArea.topX)
+		if(y + j1 > DrawingArea.bottomY)
+			j1 -= (y + j1) - DrawingArea.bottomY;
+		if(x < DrawingArea.topX)
 		{
-			int k2 = DrawingArea.topX - i;
+			int k2 = DrawingArea.topX - x;
 			k1 -= k2;
-			i = DrawingArea.topX;
+			x = DrawingArea.topX;
 			i1 += k2;
 			l += k2;
 			i2 += k2;
 			l1 += k2;
 		}
-		if(i + k1 > DrawingArea.bottomX)
+		if(x + k1 > DrawingArea.bottomX)
 		{
-			int l2 = (i + k1) - DrawingArea.bottomX;
+			int l2 = (x + k1) - DrawingArea.bottomX;
 			k1 -= l2;
 			i2 += l2;
 			l1 += l2;
@@ -758,8 +760,8 @@ public final class Sprite extends DrawingArea {
 		}
 	}
 
-	public void method352(int i, int j, int ai[], int k, int ai1[], int i1,
-						  int j1, int k1, int l1, int i2)
+	public void method352(int x, int y, int i, int j, int[] ai, int k, int[] ai1, int i1,
+						  int l1, int i2)
 	{
 		try
 		{
@@ -771,14 +773,14 @@ public final class Sprite extends DrawingArea {
 			i3 = i3 * k >> 8;
 			int j3 = (i2 << 16) + (k2 * l2 + j2 * i3);
 			int k3 = (i1 << 16) + (k2 * i3 - j2 * l2);
-			int l3 = k1 + j1 * DrawingArea.width;
-			for(j1 = 0; j1 < i; j1++)
+			int l3 = x + y * DrawingArea.width;
+			for(y = 0; y < i; y++)
 			{
-				int i4 = ai1[j1];
+				int i4 = ai1[y];
 				int j4 = l3 + i4;
 				int k4 = j3 + i3 * i4;
 				int l4 = k3 - l2 * i4;
-				for(k1 = -ai[j1]; k1 < 0; k1++)
+				for(x = -ai[y]; x < 0; x++)
 				{
 					DrawingArea.pixels[j4++] = myPixels[(k4 >> 16) + (l4 >> 16) * myWidth];
 					k4 += i3;
@@ -796,8 +798,8 @@ public final class Sprite extends DrawingArea {
 		}
 	}
 
-	public void method353(int i,
-						  double d, int l1)
+	public void method353(int y,
+						  double d, int x)
 	{
 		//all of the following were parameters
 		int j = 15;
@@ -816,13 +818,13 @@ public final class Sprite extends DrawingArea {
 			l2 = l2 * j1 >> 8;
 			int i3 = (l << 16) + (j2 * k2 + i2 * l2);
 			int j3 = (j << 16) + (j2 * l2 - i2 * k2);
-			int k3 = l1 + i * DrawingArea.width;
-			for(i = 0; i < k1; i++)
+			int k3 = x + y * DrawingArea.width;
+			for(y = 0; y < k1; y++)
 			{
 				int l3 = k3;
 				int i4 = i3;
 				int j4 = j3;
-				for(l1 = -k; l1 < 0; l1++)
+				for(x = -k; x < 0; x++)
 				{
 					int k4 = myPixels[(i4 >> 16) + (j4 >> 16) * myWidth];
 					if(k4 != 0)
@@ -940,4 +942,63 @@ public final class Sprite extends DrawingArea {
 	public int anInt1443;
 	public int maxWidth;
 	public int maxHeight;
+
+	public void drawSpriteWithOpacity(int xPos, int yPos, int o) {
+		this.xPosition = xPos;
+		this.yPosition = yPos;
+		int i1 = xPos + yPos * DrawingArea.width;
+		int j1 = 0;
+		int k1 = myHeight;
+		int l1 = myWidth;
+		int i2 = DrawingArea.width - l1;
+		int j2 = 0;
+		if (yPos < DrawingArea.topY) {
+			int k2 = DrawingArea.topY - yPos;
+			k1 -= k2;
+			yPos = DrawingArea.topY;
+			j1 += k2 * l1;
+			i1 += k2 * DrawingArea.width;
+		}
+		if (yPos + k1 > DrawingArea.bottomY)
+			k1 -= (yPos + k1) - DrawingArea.bottomY;
+		if (xPos < DrawingArea.topX) {
+			int l2 = DrawingArea.topX - xPos;
+			l1 -= l2;
+			xPos = DrawingArea.topX;
+			j1 += l2;
+			i1 += l2;
+			j2 += l2;
+			i2 += l2;
+		}
+		if (xPos + l1 > DrawingArea.bottomX) {
+			int i3 = (xPos + l1) - DrawingArea.bottomX;
+			l1 -= i3;
+			j2 += i3;
+			i2 += i3;
+		}
+		if (!(l1 <= 0 || k1 <= 0)) {
+			block_copy_alpha(j1, l1, DrawingArea.pixels, myPixels, j2, k1, i2, o, i1);
+		}
+	}
+
+	public void block_copy_alpha(int i, int j, int dst[], int pixels[], int l, int i1, int j1, int k1, int l1) {
+		int k;// was parameter
+		int j2 = 256 - k1;
+		for (int k2 = -i1; k2 < 0; k2++) {
+			for (int l2 = -j; l2 < 0; l2++) {
+				k = pixels[i++];
+				if (k != 0) {
+					int i3 = dst[l1];
+					dst[l1++]= ((k & 0xff00ff) * k1 + (i3 & 0xff00ff) * j2 & 0xff00ff00)
+							+ ((k & 0xff00) * k1 + (i3 & 0xff00) * j2 & 0xff0000) >> 8;
+				} else {
+					l1++;
+				}
+			}
+
+			l1 += j1;
+			i += l;
+		}
+	}
+
 }

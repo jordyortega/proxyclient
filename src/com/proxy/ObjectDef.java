@@ -433,7 +433,7 @@ public final class ObjectDef {
 			int j = varBit.anInt648;
 			int k = varBit.anInt649;
 			int l = varBit.anInt650;
-			int i1 = client.anIntArray1232[l - k];
+			int i1 = Client.anIntArray1232[l - k];
 			i = clientInstance.variousSettings[j] >> k & i1;
 		} else if (anInt749 != -1)
 			i = clientInstance.variousSettings[anInt749];
@@ -509,13 +509,13 @@ public final class ObjectDef {
 		flag = anInt748 != 128 || anInt772 != 128 || anInt740 != 128;
 		boolean flag2;
 		flag2 = anInt738 != 0 || anInt745 != 0 || anInt783 != 0;
-		Model model_3 = new Model(modifiedModelColors == null, Class36
-				.method532(k), l == 0 && k == -1 && !flag && !flag2, model);
+		Model model_3 = new Model(modifiedModelColors == null, FrameReader
+				.isNullFrame(k), l == 0 && k == -1 && !flag && !flag2, model);
 		if (k != -1) {
 			model_3.method469();
-			model_3.method470(k);
-			model_3.anIntArrayArray1658 = null;
-			model_3.anIntArrayArray1657 = null;
+			model_3.applyTransform(k);
+			model_3.triangleSkin = null;
+			model_3.vertexSkin = null;
 		}
 		while (l-- > 0)
 			model_3.method473();
@@ -704,7 +704,7 @@ public final class ObjectDef {
 	public int anInt761;
 	public boolean aBoolean762;
 	public boolean aBoolean764;
-	public static client clientInstance;
+	public static Client clientInstance;
 	public boolean aBoolean766;
 	public boolean aBoolean767;
 	public int anInt768;

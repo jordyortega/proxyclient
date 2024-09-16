@@ -36,7 +36,7 @@ import javax.swing.border.EmptyBorder;
 import com.proxy.sign.signlink;
 
 
-public class Jframe extends client implements ActionListener {
+public class Jframe extends Client implements ActionListener {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class Jframe extends client implements ActionListener {
 	public Jframe(String args[]) {
 		super();
 		try {
-			com.proxy.sign.signlink.startpriv(InetAddress.getByName(server));
+			signlink.startpriv(InetAddress.getByName(server));
 			initUI();
 		} catch (Exception ex) {
 			ex.printStackTrace();

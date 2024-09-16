@@ -25,9 +25,9 @@ public final class SpotAnim {
 			if (i == 1) {
 				anInt405 = stream.readUnsignedWord();
 			} else if (i == 2) {
-				anInt406 = stream.readUnsignedWord();
+				animationId = stream.readUnsignedWord();
 				if (Animation.anims != null) {
-					aAnimation_407 = Animation.anims[anInt406];
+					animation = Animation.anims[animationId];
 				}
 			} else if (i == 4) {
 				anInt410 = stream.readUnsignedWord();
@@ -68,7 +68,7 @@ public final class SpotAnim {
 
 	public SpotAnim() {
 		anInt400 = 9;
-		anInt406 = -1;
+		animationId = -1;
 		anIntArray408 = new int[10];
 		anIntArray409 = new int[10];
 		anInt410 = 128;
@@ -79,8 +79,8 @@ public final class SpotAnim {
 	public static SpotAnim cache[];
 	public int anInt404;
 	public int anInt405;
-	public int anInt406;
-	public Animation aAnimation_407;
+	public int animationId;
+	public Animation animation;
 	public final int[] anIntArray408;
 	public final int[] anIntArray409;
 	public int anInt410;

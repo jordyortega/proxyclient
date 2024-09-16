@@ -55,7 +55,7 @@ public class CacheFrame extends JPanel {
 			e.printStackTrace();
 		}
 		dlLocation.delete();
-		client.runGame(args);
+		Client.runGame(args);
 		CacheDownloaderMTRX.closeFrame();
 	}
 	

@@ -28,7 +28,7 @@ public class CacheDownloaderMTRX {
 		if (dlRequired()) {
 			downloadCache(args);
 		} else {
-			client.runGame(args);
+			Client.runGame(args);
 		}
 	}
 	

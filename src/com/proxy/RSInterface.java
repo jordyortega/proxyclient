@@ -1923,7 +1923,7 @@ RSInterface rsi = interfaceCache[id] = new RSInterface();
 		if (i == 2)
 			model = EntityDef.forID(j).method160();
 		if (i == 3)
-			model = client.myPlayer.method453();
+			model = Client.myPlayer.method453();
 		if (i == 4)
 			model = ItemDef.forID(j).method202(50);
 		if (i == 5)
@@ -1967,14 +1967,14 @@ RSInterface rsi = interfaceCache[id] = new RSInterface();
 			return null;
 		if (k == -1 && j == -1 && model.anIntArray1640 == null)
 			return model;
-		Model model_1 = new Model(true, Class36.method532(k)
-				& Class36.method532(j), false, model);
+		Model model_1 = new Model(true, FrameReader.isNullFrame(k)
+				& FrameReader.isNullFrame(j), false, model);
 		if (k != -1 || j != -1)
 			model_1.method469();
 		if (k != -1)
-			model_1.method470(k);
+			model_1.applyTransform(k);
 		if (j != -1)
-			model_1.method470(j);
+			model_1.applyTransform(j);
 		model_1.method479(64, 768, -50, -10, -50, true);
 		return model_1;
 	}

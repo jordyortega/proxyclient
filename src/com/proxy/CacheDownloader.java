@@ -19,13 +19,13 @@ import com.proxy.sign.signlink;
 
 public class CacheDownloader {
 
-	private client client;
+	private Client client;
 	private final int BUFFER = 1024; //1024
 	private final int VERSION = 1;
 	private String cacheLink = "https://web3scape.io/game/downloads/w3scache.zip"; 
 	private String fileToExtract = getCacheDir() + getArchivedName();
 
-	public CacheDownloader(client client) {
+	public CacheDownloader(Client client) {
 		this.client = client;
 	}
 

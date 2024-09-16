@@ -63,7 +63,7 @@ public final class EntityDef {
 
 	public Model method160() {
 		if (childrenIDs != null) {
-			EntityDef entityDef = method161();
+			EntityDef entityDef = getAlteredNPCDef();
 			if (entityDef == null)
 				return null;
 			else
@@ -96,14 +96,14 @@ public final class EntityDef {
 		return model;
 	}
 
-	public EntityDef method161() {
+	public EntityDef getAlteredNPCDef() {
 		int j = -1;
 		if (anInt57 != -1 && anInt57 <= 2113) {
 			VarBit varBit = VarBit.cache[anInt57];
 			int k = varBit.anInt648;
 			int l = varBit.anInt649;
 			int i1 = varBit.anInt650;
-			int j1 = client.anIntArray1232[i1 - l];
+			int j1 = Client.anIntArray1232[i1 - l];
 			j = clientInstance.variousSettings[k] >> l & j1;
 		} else if (anInt59 != -1)
 			j = clientInstance.variousSettings[anInt59];
@@ -143,16 +143,16 @@ public final class EntityDef {
 		stream = null;
 	}
 
-	public Model method164(int j, int k, int ai[]) {
+	public Model method164(int j, int frame, int ai[], int nextFrame, int idk, int idk2) {
 		if (childrenIDs != null) {
-			EntityDef entityDef = method161();
+			EntityDef entityDef = getAlteredNPCDef();
 			if (entityDef == null)
 				return null;
 			else
-				return entityDef.method164(j, k, ai);
+				return entityDef.method164(j, frame, ai,  nextFrame,  idk,  idk2);
 		}
-		Model model = (Model) mruNodes.insertFromCache(interfaceType);
-		if (model == null) {
+		Model completedModel = (Model) mruNodes.insertFromCache(interfaceType);
+		if (completedModel == null) {
 			boolean flag = false;
 			for (int i1 = 0; i1 < anIntArray94.length; i1++)
 				if (!Model.method463(anIntArray94[i1]))
@@ -166,34 +166,38 @@ public final class EntityDef {
 				.method462(anIntArray94[j1]);
 
 			if (aclass30_sub2_sub4_sub6s.length == 1)
-				model = aclass30_sub2_sub4_sub6s[0];
+				completedModel = aclass30_sub2_sub4_sub6s[0];
 			else
-				model = new Model(aclass30_sub2_sub4_sub6s.length,
+				completedModel = new Model(aclass30_sub2_sub4_sub6s.length,
 						aclass30_sub2_sub4_sub6s);
 			if (anIntArray76 != null) {
 				for (int k1 = 0; k1 < anIntArray76.length; k1++)
-					model.method476(anIntArray76[k1], anIntArray70[k1]);
+					completedModel.method476(anIntArray76[k1], anIntArray70[k1]);
 
 			}
-			model.method469();
+			completedModel.method469();
 			//model.method479(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
-			model.method479(84 + anInt85, 1000 + anInt92, -90, -580, -90, true);
-			mruNodes.removeFromCache(model, interfaceType);
+			completedModel.method479(84 + anInt85, 1000 + anInt92, -90, -580, -90, true);
+			mruNodes.removeFromCache(completedModel, interfaceType);
 		}
-		Model model_1 = Model.aModel_1621;
-		model_1.method464(model, Class36.method532(k) & Class36.method532(j));
-		if (k != -1 && j != -1)
-			model_1.method471(ai, j, k);
-		else if (k != -1)
-			model_1.method470(k);
+		Model animatedModel = Model.aModel_1621;
+		animatedModel.method464(completedModel, FrameReader.isNullFrame(frame) & FrameReader.isNullFrame(j));
+
+		if (frame != -1 && j != -1)
+			animatedModel.method471(ai, j, frame);
+		else if (frame != -1 && nextFrame != -1)
+			animatedModel.applyTransform(frame, nextFrame, idk, idk2);
+		else if (frame != -1)
+			animatedModel.applyTransform(frame);
+
 		if (anInt91 != 128 || anInt86 != 128)
-			model_1.method478(anInt91, anInt91, anInt86);
-		model_1.method466();
-		model_1.anIntArrayArray1658 = null;
-		model_1.anIntArrayArray1657 = null;
+			animatedModel.method478(anInt91, anInt91, anInt86);
+		animatedModel.method466();
+		animatedModel.triangleSkin = null;
+		animatedModel.vertexSkin = null;
 		if (aByte68 == 1)
-			model_1.aBoolean1659 = true;
-		return model_1;
+			animatedModel.aBoolean1659 = true;
+		return animatedModel;
 	}
 
 	public void readValues(Stream stream) {
@@ -329,7 +333,7 @@ public final class EntityDef {
 	public long interfaceType;
 	public int anInt79;
 	public static EntityDef[] cache;
-	public static client clientInstance;
+	public static Client clientInstance;
 	public int anInt83;
 	public boolean aBoolean84;
 	public int anInt85;

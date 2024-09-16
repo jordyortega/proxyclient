@@ -31,8 +31,7 @@ public class Loader extends JFrame {
 			public void run() {
 				try {
 					try {
-						UIManager.setLookAndFeel(UIManager
-								.getSystemLookAndFeelClassName());
+						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -80,11 +79,11 @@ public class Loader extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (revision474.isSelected()) {
-					client.main(new String[] {"474"});
+					Client.main(new String[] {"474"});
 	            	frame.dispose();
 				}
 				if (revision667.isSelected()) {
-					client.main(new String[] {"667"});
+					Client.main(new String[] {"667"});
 	            	frame.dispose();
 				}
 

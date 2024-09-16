@@ -6,7 +6,7 @@ public class Entity extends Animable {
 
 	public final void setPos(int i, int j, boolean flag)
 	{
-		if(anim != -1 && Animation.anims[anim].anInt364 == 1)
+		if(anim != -1 && Animation.anims[anim].priority == 1)
 			anim = -1;
 		if(!flag)
 		{
@@ -14,9 +14,9 @@ public class Entity extends Animable {
 			int l = j - smallY[0];
 			if(k >= -8 && k <= 8 && l >= -8 && l <= 8)
 			{
-				if(smallXYIndex < 9)
-					smallXYIndex++;
-				for(int i1 = smallXYIndex; i1 > 0; i1--)
+				if(pathLength < 9)
+					pathLength++;
+				for(int i1 = pathLength; i1 > 0; i1--)
 				{
 					smallX[i1] = smallX[i1 - 1];
 					smallY[i1] = smallY[i1 - 1];
@@ -29,7 +29,7 @@ public class Entity extends Animable {
 				return;
 			}
 		}
-		smallXYIndex = 0;
+		pathLength = 0;
 		anInt1542 = 0;
 		anInt1503 = 0;
 		smallX[0] = i;
@@ -40,7 +40,7 @@ public class Entity extends Animable {
 
 	public final void method446()
 	{
-		smallXYIndex = 0;
+		pathLength = 0;
 		anInt1542 = 0;
 	}
 
@@ -88,11 +88,11 @@ public class Entity extends Animable {
 			j++;
 			k--;
 		}
-		if(anim != -1 && Animation.anims[anim].anInt364 == 1)
+		if(anim != -1 && Animation.anims[anim].priority == 1)
 			anim = -1;
-		if(smallXYIndex < 9)
-			smallXYIndex++;
-		for(int l = smallXYIndex; l > 0; l--)
+		if(pathLength < 9)
+			pathLength++;
+		for(int l = pathLength; l > 0; l--)
 		{
 			smallX[l] = smallX[l - 1];
 			smallY[l] = smallY[l - 1];
@@ -119,12 +119,12 @@ public class Entity extends Animable {
 		anInt1504 = 32;
 		anInt1505 = -1;
 		height = 200;
-		anInt1511 = -1;
+		standAnim = -1;
 		anInt1512 = -1;
 		hitArray = new int[4];
 		hitMarkTypes = new int[4];
 		hitsLoopCycle = new int[4];
-		anInt1517 = -1;
+		entityAnimation = -1;
 		anInt1520 = -1;
 		anim = -1;
 		loopCycleStatus = -1000;
@@ -147,25 +147,25 @@ public class Entity extends Animable {
 	public String textSpoken;
 	public int height;
 	public int turnDirection;
-	int anInt1511;
+	int standAnim;
 	int anInt1512;
 	int anInt1513;
 	final int[] hitArray;
 	final int[] hitMarkTypes;
 	final int[] hitsLoopCycle;
-	int anInt1517;
-	int anInt1518;
+	int entityAnimation;
+	int currentForcedAnimFrame;
 	int anInt1519;
 	int anInt1520;
-	int anInt1521;
-	int anInt1522;
-	int anInt1523;
-	int anInt1524;
-	int smallXYIndex;
+	int currentAnim;
+	int animCycle;
+	int graphicDelay;
+	int graphicHeight;
+	int pathLength;
 	public int anim;
-	int anInt1527;
+	int currentAnimFrame;
 	int anInt1528;
-	int anInt1529;
+	int animationDelay;
 	int anInt1530;
 	int anInt1531;
 	public int loopCycleStatus;
@@ -193,4 +193,7 @@ public class Entity extends Animable {
 	int anInt1555;
 	int anInt1556;
 	int anInt1557;
+	public int nextAnimationFrame;
+	public int nextGraphicsAnimationFrame;
+	public int nextIdleAnimationFrame;
 }

@@ -30,15 +30,15 @@ final class Animable_Sub4 extends Animable {
 		if(model == null)
 			return null;
 		int j = -1;
-		if(aSpotAnim_1592.aAnimation_407 != null)
-			j = aSpotAnim_1592.aAnimation_407.anIntArray353[anInt1593];
-		Model model_1 = new Model(true, Class36.method532(j), false, model);
+		if(aSpotAnim_1592.animation != null)
+			j = aSpotAnim_1592.animation.frameIDs[anInt1593];
+		Model model_1 = new Model(true, FrameReader.isNullFrame(j), false, model);
 		if(j != -1)
 		{
 			model_1.method469();
-			model_1.method470(j);
-			model_1.anIntArrayArray1658 = null;
-			model_1.anIntArrayArray1657 = null;
+			model_1.applyTransform(j);
+			model_1.triangleSkin = null;
+			model_1.vertexSkin = null;
 		}
 		if(aSpotAnim_1592.anInt410 != 128 || aSpotAnim_1592.anInt411 != 128)
 			model_1.method478(aSpotAnim_1592.anInt410, aSpotAnim_1592.anInt410, aSpotAnim_1592.anInt411);
@@ -74,12 +74,12 @@ final class Animable_Sub4 extends Animable {
 		aDouble1577 += aDouble1578 * (double)i;
 		anInt1595 = (int)(Math.atan2(aDouble1574, aDouble1575) * 325.94900000000001D) + 1024 & 0x7ff;
 		anInt1596 = (int)(Math.atan2(aDouble1577, aDouble1576) * 325.94900000000001D) & 0x7ff;
-		if(aSpotAnim_1592.aAnimation_407 != null)
-			for(anInt1594 += i; anInt1594 > aSpotAnim_1592.aAnimation_407.method258(anInt1593);)
+		if(aSpotAnim_1592.animation != null)
+			for(anInt1594 += i; anInt1594 > aSpotAnim_1592.animation.getFrameLength(anInt1593);)
 			{
-				anInt1594 -= aSpotAnim_1592.aAnimation_407.method258(anInt1593) + 1;
+				anInt1594 -= aSpotAnim_1592.animation.getFrameLength(anInt1593) + 1;
 				anInt1593++;
-				if(anInt1593 >= aSpotAnim_1592.aAnimation_407.anInt352)
+				if(anInt1593 >= aSpotAnim_1592.animation.frameCount)
 					anInt1593 = 0;
 			}
 

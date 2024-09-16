@@ -19,8 +19,8 @@ public final class Model extends Animable {
 		anIntArray1675 = null;
 		anIntArray1676 = null;
 		anIntArray1677 = null;
-		modelIntArray1 = null;
-		modelIntArray2 = null;
+		SINE = null;
+		COSINE = null;
 		modelIntArray3 = null;
 		modelIntArray4 = null;
 	}
@@ -330,7 +330,7 @@ public final class Model extends Animable {
 			anIntArray1655 = new int[numVertices];
 			anIntArray1637 = new int[numTriangles];
 			anIntArray1638 = new int[numTriangles];
-			anIntArray1639 = new int[numTriangles];
+			face_alpha = new int[numTriangles];
 			anIntArray1656 = new int[numTriangles];
 
 
@@ -345,7 +345,7 @@ public final class Model extends Animable {
 		else {
 		}
 		if(j2 == 1)
-			anIntArray1639 = new int[numTriangles];
+			face_alpha = new int[numTriangles];
 		if(k2 == 1)
 			anIntArray1656 = new int[numTriangles];
 		if(l2 == 1)
@@ -421,9 +421,9 @@ public final class Model extends Animable {
 			anIntArray1638[i12] = nc3.readSignedByte();
 			}
 			if(j2 == 1){
-			anIntArray1639[i12] = nc4.readSignedByte();
-			if(anIntArray1639[i12] < 0)
-			anIntArray1639[i12] = (256+anIntArray1639[i12]);
+			face_alpha[i12] = nc4.readSignedByte();
+			if(face_alpha[i12] < 0)
+			face_alpha[i12] = (256+ face_alpha[i12]);
 			}
 			if(k2 == 1)
 			anIntArray1656[i12] = nc5.readUnsignedByte();
@@ -583,7 +583,7 @@ public final class Model extends Animable {
 		else
 			anInt1641 = -class21.anInt381 - 1;
 		if(class21.anInt382 >= 0)
-			anIntArray1639 = new int[anInt1630];
+			face_alpha = new int[anInt1630];
 		if(class21.anInt383 >= 0)
 			anIntArray1656 = new int[anInt1630];
 		anIntArray1640 = new int[anInt1630];
@@ -634,8 +634,8 @@ public final class Model extends Animable {
 				anIntArray1637[l1] = stream_1.readUnsignedByte();
 			if(anIntArray1638 != null)
 				anIntArray1638[l1] = stream_2.readUnsignedByte();
-			if(anIntArray1639 != null)
-				anIntArray1639[l1] = stream_3.readUnsignedByte();
+			if(face_alpha != null)
+				face_alpha[l1] = stream_3.readUnsignedByte();
 			if(anIntArray1656 != null)
 				anIntArray1656[l1] = stream_4.readUnsignedByte();
 		}
@@ -734,7 +734,7 @@ public final class Model extends Animable {
 					if(anInt1641 != model.anInt1641)
 						flag1 = true;
 				}
-				flag2 |= model.anIntArray1639 != null;
+				flag2 |= model.face_alpha != null;
 				flag3 |= model.anIntArray1656 != null;
 			}
 		}
@@ -754,7 +754,7 @@ public final class Model extends Animable {
 		if(flag1)
 			anIntArray1638 = new int[anInt1630];
 		if(flag2)
-			anIntArray1639 = new int[anInt1630];
+			face_alpha = new int[anInt1630];
 		if(flag3)
 			anIntArray1656 = new int[anInt1630];
 		anIntArray1640 = new int[anInt1630];
@@ -786,10 +786,10 @@ public final class Model extends Animable {
 						else
 							anIntArray1638[anInt1630] = model_1.anIntArray1638[j1];
 					if(flag2)
-						if(model_1.anIntArray1639 == null)
-							anIntArray1639[anInt1630] = 0;
+						if(model_1.face_alpha == null)
+							face_alpha[anInt1630] = 0;
 						else
-							anIntArray1639[anInt1630] = model_1.anIntArray1639[j1];
+							face_alpha[anInt1630] = model_1.face_alpha[j1];
 					if(flag3 && model_1.anIntArray1656 != null)
 						anIntArray1656[anInt1630] = model_1.anIntArray1656[j1];
 					anIntArray1640[anInt1630] = model_1.anIntArray1640[j1];
@@ -844,7 +844,7 @@ public final class Model extends Animable {
 					if(anInt1641 != model.anInt1641)
 						flag2 = true;
 				}
-				flag3 |= model.anIntArray1639 != null;
+				flag3 |= model.face_alpha != null;
 				flag4 |= model.anIntArray1640 != null;
 			}
 		}
@@ -866,7 +866,7 @@ public final class Model extends Animable {
 		if(flag2)
 			anIntArray1638 = new int[anInt1630];
 		if(flag3)
-			anIntArray1639 = new int[anInt1630];
+			face_alpha = new int[anInt1630];
 		if(flag4)
 			anIntArray1640 = new int[anInt1630];
 		anInt1626 = 0;
@@ -912,10 +912,10 @@ public final class Model extends Animable {
 						else
 							anIntArray1638[anInt1630] = model_1.anIntArray1638[i2];
 					if(flag3)
-						if(model_1.anIntArray1639 == null)
-							anIntArray1639[anInt1630] = 0;
+						if(model_1.face_alpha == null)
+							face_alpha[anInt1630] = 0;
 						else
-							anIntArray1639[anInt1630] = model_1.anIntArray1639[i2];
+							face_alpha[anInt1630] = model_1.face_alpha[i2];
 					if(flag4 && model_1.anIntArray1640 != null)
 						anIntArray1640[anInt1630] = model_1.anIntArray1640[i2];
 					anInt1630++;
@@ -971,18 +971,18 @@ public final class Model extends Animable {
 		}
 		if(flag1)
 		{
-			anIntArray1639 = model.anIntArray1639;
+			face_alpha = model.face_alpha;
 		} else
 		{
-			anIntArray1639 = new int[anInt1630];
-			if(model.anIntArray1639 == null)
+			face_alpha = new int[anInt1630];
+			if(model.face_alpha == null)
 			{
 				for(int l = 0; l < anInt1630; l++)
-					anIntArray1639[l] = 0;
+					face_alpha[l] = 0;
 
 			} else
 			{
-				System.arraycopy(model.anIntArray1639, 0, anIntArray1639, 0, anInt1630);
+				System.arraycopy(model.face_alpha, 0, face_alpha, 0, anInt1630);
 
 			}
 		}
@@ -1059,7 +1059,7 @@ public final class Model extends Animable {
 		anIntArray1627 = model.anIntArray1627;
 		anIntArray1629 = model.anIntArray1629;
 		anIntArray1640 = model.anIntArray1640;
-		anIntArray1639 = model.anIntArray1639;
+		face_alpha = model.face_alpha;
 		anIntArray1638 = model.anIntArray1638;
 		anInt1641 = model.anInt1641;
 		anIntArray1631 = model.anIntArray1631;
@@ -1102,20 +1102,20 @@ public final class Model extends Animable {
 
 		if(flag)
 		{
-			anIntArray1639 = model.anIntArray1639;
+			face_alpha = model.face_alpha;
 		} else
 		{
 			if(anIntArray1625.length < anInt1630)
 				anIntArray1625 = new int[anInt1630 + 100];
-			anIntArray1639 = anIntArray1625;
-			if(model.anIntArray1639 == null)
+			face_alpha = anIntArray1625;
+			if(model.face_alpha == null)
 			{
 				for(int l = 0; l < anInt1630; l++)
-					anIntArray1639[l] = 0;
+					face_alpha[l] = 0;
 
 			} else
 			{
-				System.arraycopy(model.anIntArray1639, 0, anIntArray1639, 0, anInt1630);
+				System.arraycopy(model.face_alpha, 0, face_alpha, 0, anInt1630);
 
 			}
 		}
@@ -1123,8 +1123,8 @@ public final class Model extends Animable {
 		anIntArray1640 = model.anIntArray1640;
 		anIntArray1638 = model.anIntArray1638;
 		anInt1641 = model.anInt1641;
-		anIntArrayArray1658 = model.anIntArrayArray1658;
-		anIntArrayArray1657 = model.anIntArrayArray1657;
+		triangleSkin = model.triangleSkin;
+		vertexSkin = model.vertexSkin;
 		anIntArray1631 = model.anIntArray1631;
 		anIntArray1632 = model.anIntArray1632;
 		anIntArray1633 = model.anIntArray1633;
@@ -1252,17 +1252,17 @@ public final class Model extends Animable {
 					j = j1;
 			}
 
-			anIntArrayArray1657 = new int[j + 1][];
+			vertexSkin = new int[j + 1][];
 			for(int k1 = 0; k1 <= j; k1++)
 			{
-				anIntArrayArray1657[k1] = new int[ai[k1]];
+				vertexSkin[k1] = new int[ai[k1]];
 				ai[k1] = 0;
 			}
 
 			for(int j2 = 0; j2 < anInt1626; j2++)
 			{
 				int l2 = anIntArray1655[j2];
-				anIntArrayArray1657[l2][ai[l2]++] = j2;
+				vertexSkin[l2][ai[l2]++] = j2;
 			}
 
 			anIntArray1655 = null;
@@ -1279,69 +1279,176 @@ public final class Model extends Animable {
 					k = l1;
 			}
 
-			anIntArrayArray1658 = new int[k + 1][];
+			triangleSkin = new int[k + 1][];
 			for(int i2 = 0; i2 <= k; i2++)
 			{
-				anIntArrayArray1658[i2] = new int[ai1[i2]];
+				triangleSkin[i2] = new int[ai1[i2]];
 				ai1[i2] = 0;
 			}
 
 			for(int k2 = 0; k2 < anInt1630; k2++)
 			{
 				int i3 = anIntArray1656[k2];
-				anIntArrayArray1658[i3][ai1[i3]++] = k2;
+				triangleSkin[i3][ai1[i3]++] = k2;
 			}
 
 			anIntArray1656 = null;
 		}
 	}
 
-	public void method470(int i) {
-        if (anIntArrayArray1657 == null)
+	public void applyTransform(int i) {
+        if (vertexSkin == null)
             return;
         if (i == -1)
             return;
-       Class36 class36 = Class36.method531(i);
-        if (class36 == null)
+       FrameReader frameReader = FrameReader.forID(i);
+        if (frameReader == null)
             return;
-        Class18 class18 = class36.aClass18_637;
+        SkinList skinList = frameReader.mySkinList;
         anInt1681 = 0;
         anInt1682 = 0;
         anInt1683 = 0;
-        for (int k = 0; k < class36.anInt638; k++) {
-            int l = class36.anIntArray639[k];
-            method472(class18.anIntArray342[l], class18.anIntArrayArray343[l], class36.anIntArray640[k], class36.anIntArray641[k], class36.anIntArray642[k]);
+        for (int k = 0; k < frameReader.stepCount; k++) {
+            int l = frameReader.opCodeLinkTable[k];
+            method472(skinList.opcodes[l], skinList.skinList[l], frameReader.xOffset[k], frameReader.yOffset[k], frameReader.zOffset[k]);
         }
 
     }
+	public void applyTransform(int firstFrame, int nextFrame, int end, int cycle) {
 
+		try {
+			if (vertexSkin != null && firstFrame != -1) {
+				FrameReader currentAnimation = FrameReader.forID(firstFrame);
+				if (currentAnimation == null) {
+					return;
+				}
+				SkinList list1 = currentAnimation.mySkinList;
+				if (list1 == null) {
+					return;
+				}
+				anInt1681 = 0;
+				anInt1682 = 0;
+				anInt1683 = 0;
+				FrameReader nextAnimation = null;
+				SkinList list2 = null;
+				if (nextFrame != -1) {
+					nextAnimation = FrameReader.forID(nextFrame);
+					if (nextAnimation.mySkinList != list1)
+						nextAnimation = null;
+					list2 = nextAnimation.mySkinList;
+				}
+				if (nextAnimation == null || list2 == null) {
+					for (int i_263_ = 0; i_263_ < currentAnimation.stepCount; i_263_++) {
+						int i_264_ = currentAnimation.opCodeLinkTable[i_263_];
+						method472(list1.opcodes[i_264_], list1.skinList[i_264_], currentAnimation.xOffset[i_263_], currentAnimation.yOffset[i_263_], currentAnimation.zOffset[i_263_]);
+
+					}
+				} else {
+					for (int i1 = 0; i1 < currentAnimation.stepCount; i1++) {
+						int n1 = currentAnimation.opCodeLinkTable[i1];
+						int opcode = list1.opcodes[n1];
+						int[] skin = list1.skinList[n1];
+						int x = currentAnimation.xOffset[i1];
+						int y = currentAnimation.yOffset[i1];
+						int z = currentAnimation.zOffset[i1];
+						boolean found = false;
+						for (int i2 = 0; i2 < nextAnimation.stepCount; i2++) {
+							int n2 = nextAnimation.opCodeLinkTable[i2];
+							if (list2.skinList[n2].equals(skin)) {
+								if (opcode != 2) {
+									x += (nextAnimation.xOffset[i2] - x) * cycle / end;
+									y += (nextAnimation.yOffset[i2] - y) * cycle / end;
+									z += (nextAnimation.zOffset[i2] - z) * cycle / end;
+								} else {
+									x &= 0x7ff;
+									y &= 0x7ff;
+									z &= 0x7ff;
+									int dx = nextAnimation.xOffset[i2] - x & 0x7ff;
+									int dy = nextAnimation.yOffset[i2] - y & 0x7ff;
+									int dz = nextAnimation.zOffset[i2] - z & 0x7ff;
+									if (dx >= 1024) {
+										dx -= 2048;
+									}
+									if (dy >= 1024) {
+										dy -= 2048;
+									}
+									if (dz >= 1024) {
+										dz -= 2048;
+									}
+									x = x + dx * cycle / end & 0x7ff;
+									y = y + dy * cycle / end & 0x7ff;
+									z = z + dz * cycle / end & 0x7ff;
+								}
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							if (opcode != 3 && opcode != 2) {
+								x = x * (end - cycle) / end;
+								y = y * (end - cycle) / end;
+								z = z * (end - cycle) / end;
+							} else if (opcode == 3) {
+								x = (x * (end - cycle) + (cycle << 7)) / end;
+								y = (y * (end - cycle) + (cycle << 7)) / end;
+								z = (z * (end - cycle) + (cycle << 7)) / end;
+							} else {
+								x &= 0x7ff;
+								y &= 0x7ff;
+								z &= 0x7ff;
+								int dx = -x & 0x7ff;
+								int dy = -y & 0x7ff;
+								int dz = -z & 0x7ff;
+								if (dx >= 1024) {
+									dx -= 2048;
+								}
+								if (dy >= 1024) {
+									dy -= 2048;
+								}
+								if (dz >= 1024) {
+									dz -= 2048;
+								}
+								x = x + dx * cycle / end & 0x7ff;
+								y = y + dy * cycle / end & 0x7ff;
+								z = z + dz * cycle / end & 0x7ff;
+							}
+						}
+						method472(opcode, skin, x, y, z);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			applyTransform(firstFrame);
+		}
+	}
 
 	public void method471(int ai[], int j, int k) {
         if (k == -1)
             return;
         if (ai == null || j == -1) {
-            method470(k);
+            applyTransform(k);
             return;
         }
-        Class36 class36 = Class36.method531(k);
-        if (class36 == null)
+        FrameReader frameReader = FrameReader.forID(k);
+        if (frameReader == null)
             return;
-        Class36 class36_1 = Class36.method531(j);
-        if (class36_1 == null) {
-            method470(k);
+        FrameReader frameReader_1 = FrameReader.forID(j);
+        if (frameReader_1 == null) {
+            applyTransform(k);
             return;
         }
-       Class18 class18 = class36.aClass18_637;
+       SkinList skinList = frameReader.mySkinList;
         anInt1681 = 0;
         anInt1682 = 0;
         anInt1683 = 0;
         int l = 0;
         int i1 = ai[l++];
-        for (int j1 = 0; j1 < class36.anInt638; j1++) {
+        for (int j1 = 0; j1 < frameReader.stepCount; j1++) {
             int k1;
-            for (k1 = class36.anIntArray639[j1]; k1 > i1; i1 = ai[l++]) ;
-            if (k1 != i1 || class18.anIntArray342[k1] == 0)
-                method472(class18.anIntArray342[k1], class18.anIntArrayArray343[k1], class36.anIntArray640[j1], class36.anIntArray641[j1], class36.anIntArray642[j1]);
+            for (k1 = frameReader.opCodeLinkTable[j1]; k1 > i1; i1 = ai[l++]) ;
+            if (k1 != i1 || skinList.opcodes[k1] == 0)
+                method472(skinList.opcodes[k1], skinList.skinList[k1], frameReader.xOffset[j1], frameReader.yOffset[j1], frameReader.zOffset[j1]);
         }
 
         anInt1681 = 0;
@@ -1349,11 +1456,11 @@ public final class Model extends Animable {
         anInt1683 = 0;
         l = 0;
         i1 = ai[l++];
-        for (int l1 = 0; l1 < class36_1.anInt638; l1++) {
+        for (int l1 = 0; l1 < frameReader_1.stepCount; l1++) {
             int i2;
-            for (i2 = class36_1.anIntArray639[l1]; i2 > i1; i1 = ai[l++]) ;
-            if (i2 == i1 || class18.anIntArray342[i2] == 0)
-                method472(class18.anIntArray342[i2], class18.anIntArrayArray343[i2], class36_1.anIntArray640[l1], class36_1.anIntArray641[l1], class36_1.anIntArray642[l1]);
+            for (i2 = frameReader_1.opCodeLinkTable[l1]; i2 > i1; i1 = ai[l++]) ;
+            if (i2 == i1 || skinList.opcodes[i2] == 0)
+                method472(skinList.opcodes[i2], skinList.skinList[i2], frameReader_1.xOffset[l1], frameReader_1.yOffset[l1], frameReader_1.zOffset[l1]);
         }
 
     }
@@ -1370,9 +1477,9 @@ public final class Model extends Animable {
 			for(int k2 = 0; k2 < i1; k2++)
 			{
 				int l3 = ai[k2];
-				if(l3 < anIntArrayArray1657.length)
+				if(l3 < vertexSkin.length)
 				{
-					int ai5[] = anIntArrayArray1657[l3];
+					int ai5[] = vertexSkin[l3];
 					for(int i5 = 0; i5 < ai5.length; i5++)
 					{
 						int j6 = ai5[i5];
@@ -1404,9 +1511,9 @@ public final class Model extends Animable {
 			for(int k1 = 0; k1 < i1; k1++)
 			{
 				int l2 = ai[k1];
-				if(l2 < anIntArrayArray1657.length)
+				if(l2 < vertexSkin.length)
 				{
-					int ai1[] = anIntArrayArray1657[l2];
+					int ai1[] = vertexSkin[l2];
 					for(int i4 = 0; i4 < ai1.length; i4++)
 					{
 						int j5 = ai1[i4];
@@ -1425,9 +1532,9 @@ public final class Model extends Animable {
 			for(int l1 = 0; l1 < i1; l1++)
 			{
 				int i3 = ai[l1];
-				if(i3 < anIntArrayArray1657.length)
+				if(i3 < vertexSkin.length)
 				{
-					int ai2[] = anIntArrayArray1657[i3];
+					int ai2[] = vertexSkin[i3];
 					for(int j4 = 0; j4 < ai2.length; j4++)
 					{
 						int k5 = ai2[j4];
@@ -1439,24 +1546,24 @@ public final class Model extends Animable {
 						int i7 = (l & 0xff) * 8;
 						if(i7 != 0)
 						{
-							int j7 = modelIntArray1[i7];
-							int i8 = modelIntArray2[i7];
+							int j7 = SINE[i7];
+							int i8 = COSINE[i7];
 							int l8 = anIntArray1628[k5] * j7 + anIntArray1627[k5] * i8 >> 16;
 							anIntArray1628[k5] = anIntArray1628[k5] * i8 - anIntArray1627[k5] * j7 >> 16;
 							anIntArray1627[k5] = l8;
 						}
 						if(k6 != 0)
 						{
-							int k7 = modelIntArray1[k6];
-							int j8 = modelIntArray2[k6];
+							int k7 = SINE[k6];
+							int j8 = COSINE[k6];
 							int i9 = anIntArray1628[k5] * j8 - anIntArray1629[k5] * k7 >> 16;
 							anIntArray1629[k5] = anIntArray1628[k5] * k7 + anIntArray1629[k5] * j8 >> 16;
 							anIntArray1628[k5] = i9;
 						}
 						if(l6 != 0)
 						{
-							int l7 = modelIntArray1[l6];
-							int k8 = modelIntArray2[l6];
+							int l7 = SINE[l6];
+							int k8 = COSINE[l6];
 							int j9 = anIntArray1629[k5] * l7 + anIntArray1627[k5] * k8 >> 16;
 							anIntArray1629[k5] = anIntArray1629[k5] * k8 - anIntArray1627[k5] * l7 >> 16;
 							anIntArray1627[k5] = j9;
@@ -1476,9 +1583,9 @@ public final class Model extends Animable {
 			for(int i2 = 0; i2 < i1; i2++)
 			{
 				int j3 = ai[i2];
-				if(j3 < anIntArrayArray1657.length)
+				if(j3 < vertexSkin.length)
 				{
-					int ai3[] = anIntArrayArray1657[j3];
+					int ai3[] = vertexSkin[j3];
 					for(int k4 = 0; k4 < ai3.length; k4++)
 					{
 						int l5 = ai3[k4];
@@ -1498,22 +1605,22 @@ public final class Model extends Animable {
 
 			return;
 		}
-		if(i == 5 && anIntArrayArray1658 != null && anIntArray1639 != null)
+		if(i == 5 && triangleSkin != null && face_alpha != null)
 		{
 			for(int j2 = 0; j2 < i1; j2++)
 			{
 				int k3 = ai[j2];
-				if(k3 < anIntArrayArray1658.length)
+				if(k3 < triangleSkin.length)
 				{
-					int ai4[] = anIntArrayArray1658[k3];
+					int ai4[] = triangleSkin[k3];
 					for(int l4 = 0; l4 < ai4.length; l4++)
 					{
 						int i6 = ai4[l4];
-						anIntArray1639[i6] += j * 8;
-						if(anIntArray1639[i6] < 0)
-							anIntArray1639[i6] = 0;
-						if(anIntArray1639[i6] > 255)
-							anIntArray1639[i6] = 255;
+						face_alpha[i6] += j * 8;
+						if(face_alpha[i6] < 0)
+							face_alpha[i6] = 0;
+						if(face_alpha[i6] > 255)
+							face_alpha[i6] = 255;
 					}
 
 				}
@@ -1535,8 +1642,8 @@ public final class Model extends Animable {
 
 	public void method474(int i)
 	{
-		int k = modelIntArray1[i];
-		int l = modelIntArray2[i];
+		int k = SINE[i];
+		int l = COSINE[i];
 		for(int i1 = 0; i1 < anInt1626; i1++)
 		{
 			int j1 = anIntArray1628[i1] * l - anIntArray1629[i1] * k >> 16;
@@ -1763,16 +1870,16 @@ public final class Model extends Animable {
 
 	public final void method482(int j, int k, int l, int i1, int j1, int k1) {
 		int i = 0;
-		int l1 = Texture.textureInt1;
-		int i2 = Texture.textureInt2;
-		int j2 = modelIntArray1[i];
-		int k2 = modelIntArray2[i];
-		int l2 = modelIntArray1[j];
-		int i3 = modelIntArray2[j];
-		int j3 = modelIntArray1[k];
-		int k3 = modelIntArray2[k];
-		int l3 = modelIntArray1[l];
-		int i4 = modelIntArray2[l];
+		int l1 = Rasterizer.originX;
+		int i2 = Rasterizer.originY;
+		int j2 = SINE[i];
+		int k2 = COSINE[i];
+		int l2 = SINE[j];
+		int i3 = COSINE[j];
+		int j3 = SINE[k];
+		int k3 = COSINE[k];
+		int l3 = SINE[l];
+		int i4 = COSINE[l];
 		int j4 = j1 * l3 + k1 * i4 >> 16;
 		for (int k4 = 0; k4 < anInt1626; k4++) {
 			int l4 = anIntArray1627[k4];
@@ -1827,19 +1934,19 @@ public final class Model extends Animable {
 		if(i3 <= 50 || k2 >= 3500)
 			return;
 		int j3 = l1 * l + j1 * i1 >> 16;
-		int k3 = j3 - anInt1650 << 9;
+		int k3 = j3 - anInt1650 << Client.log_view_dist;
 		if(k3 / i3 >= DrawingArea.centerY)
 			return;
-		int l3 = j3 + anInt1650 << 9;
+		int l3 = j3 + anInt1650 << Client.log_view_dist;
 		if(l3 / i3 <= -DrawingArea.centerY)
 			return;
 		int i4 = k1 * k - j2 * j >> 16;
 		int j4 = anInt1650 * j >> 16;
-		int k4 = i4 + j4 << 9;
+		int k4 = i4 + j4 << Client.log_view_dist;
 		if(k4 / i3 <= -DrawingArea.anInt1387)
 			return;
 		int l4 = j4 + (super.modelHeight * k >> 16);
-		int i5 = i4 - l4 << 9;
+		int i5 = i4 - l4 << Client.log_view_dist;
 		if(i5 / i3 >= DrawingArea.anInt1387)
 			return;
 		int j5 = l2 + (super.modelHeight * j >> 16);
@@ -1870,22 +1977,22 @@ public final class Model extends Animable {
 				k4 /= i3;
 				i5 /= k5;
 			}
-			int i6 = anInt1685 - Texture.textureInt1;
-			int k6 = anInt1686 - Texture.textureInt2;
+			int i6 = anInt1685 - Rasterizer.originX;
+			int k6 = anInt1686 - Rasterizer.originY;
 			if(i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
 				if(aBoolean1659)
 					anIntArray1688[anInt1687++] = i2;
 				else
 					flag1 = true;
 		}
-		int l5 = Texture.textureInt1;
-		int j6 = Texture.textureInt2;
+		int l5 = Rasterizer.originX;
+		int j6 = Rasterizer.originY;
 		int l6 = 0;
 		int i7 = 0;
 		if(i != 0)
 		{
-			l6 = modelIntArray1[i];
-			i7 = modelIntArray2[i];
+			l6 = SINE[i];
+			i7 = COSINE[i];
 		}
 		for(int j7 = 0; j7 < anInt1626; j7++)
 		{
@@ -1910,8 +2017,8 @@ public final class Model extends Animable {
 			anIntArray1667[j7] = i8 - k2;
 			if(i8 >= 50)
 			{
-				anIntArray1665[j7] = l5 + (k7 << 9) / i8;
-				anIntArray1666[j7] = j6 + (l7 << 9) / i8;
+				anIntArray1665[j7] = l5 + (k7 << Client.log_view_dist) / i8;
+				anIntArray1666[j7] = j6 + (l7 << Client.log_view_dist) / i8;
 			} else
 			{
 				anIntArray1665[j7] = -5000;
@@ -2122,11 +2229,11 @@ public final class Model extends Animable {
 		int j = anIntArray1631[i];
 		int k = anIntArray1632[i];
 		int l = anIntArray1633[i];
-		Texture.aBoolean1462 = aBooleanArray1663[i];
-		if(anIntArray1639 == null)
-			Texture.anInt1465 = 0;
+		Rasterizer.clippedHorizontally = aBooleanArray1663[i];
+		if(face_alpha == null)
+			Rasterizer.anInt1465 = 0;
 		else
-			Texture.anInt1465 = anIntArray1639[i];
+			Rasterizer.anInt1465 = face_alpha[i];
 		int i1;
 		if(anIntArray1637 == null)
 			i1 = 0;
@@ -2134,12 +2241,12 @@ public final class Model extends Animable {
 			i1 = anIntArray1637[i] & 3;
 		if(i1 == 0)
 		{
-			Texture.method374(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1635[i], anIntArray1636[i]);
+			Rasterizer.method374(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1635[i], anIntArray1636[i]);
 			return;
 		}
 		if(i1 == 1)
 		{
-			Texture.method376(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], modelIntArray3[anIntArray1634[i]]);
+			Rasterizer.method376(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], modelIntArray3[anIntArray1634[i]]);
 			return;
 		}
 		if(i1 == 2)
@@ -2148,7 +2255,7 @@ public final class Model extends Animable {
 			int l1 = anIntArray1643[j1];
 			int j2 = anIntArray1644[j1];
 			int l2 = anIntArray1645[j1];
-			Texture.method378(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1635[i], anIntArray1636[i], anIntArray1668[l1], anIntArray1668[j2], anIntArray1668[l2], anIntArray1669[l1], anIntArray1669[j2], anIntArray1669[l2], anIntArray1670[l1], anIntArray1670[j2], anIntArray1670[l2], anIntArray1640[i]);
+			Rasterizer.method378(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1635[i], anIntArray1636[i], anIntArray1668[l1], anIntArray1668[j2], anIntArray1668[l2], anIntArray1669[l1], anIntArray1669[j2], anIntArray1669[l2], anIntArray1670[l1], anIntArray1670[j2], anIntArray1670[l2], anIntArray1640[i]);
 			return;
 		}
 		if(i1 == 3)
@@ -2157,14 +2264,14 @@ public final class Model extends Animable {
 			int i2 = anIntArray1643[k1];
 			int k2 = anIntArray1644[k1];
 			int i3 = anIntArray1645[k1];
-			Texture.method378(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[i2], anIntArray1668[k2], anIntArray1668[i3], anIntArray1669[i2], anIntArray1669[k2], anIntArray1669[i3], anIntArray1670[i2], anIntArray1670[k2], anIntArray1670[i3], anIntArray1640[i]);
+			Rasterizer.method378(anIntArray1666[j], anIntArray1666[k], anIntArray1666[l], anIntArray1665[j], anIntArray1665[k], anIntArray1665[l], anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[i2], anIntArray1668[k2], anIntArray1668[i3], anIntArray1669[i2], anIntArray1669[k2], anIntArray1669[i3], anIntArray1670[i2], anIntArray1670[k2], anIntArray1670[i3], anIntArray1640[i]);
 		}
 	}
 
 	private void method485(int i)
 	{
-		int j = Texture.textureInt1;
-		int k = Texture.textureInt2;
+		int j = Rasterizer.originX;
+		int k = Rasterizer.originY;
 		int l = 0;
 		int i1 = anIntArray1631[i];
 		int j1 = anIntArray1632[i];
@@ -2185,15 +2292,15 @@ public final class Model extends Animable {
 			if(j2 >= 50)
 			{
 				int k5 = (50 - l1) * modelIntArray4[j2 - l1];
-				anIntArray1678[l] = j + (k2 + ((anIntArray1668[k1] - k2) * k5 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (k3 + ((anIntArray1669[k1] - k3) * k5 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (k2 + ((anIntArray1668[k1] - k2) * k5 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (k3 + ((anIntArray1669[k1] - k3) * k5 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = k4 + ((anIntArray1636[i] - k4) * k5 >> 16);
 			}
 			if(i2 >= 50)
 			{
 				int l5 = (50 - l1) * modelIntArray4[i2 - l1];
-				anIntArray1678[l] = j + (k2 + ((anIntArray1668[j1] - k2) * l5 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (k3 + ((anIntArray1669[j1] - k3) * l5 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (k2 + ((anIntArray1668[j1] - k2) * l5 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (k3 + ((anIntArray1669[j1] - k3) * l5 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = k4 + ((anIntArray1635[i] - k4) * l5 >> 16);
 			}
 		}
@@ -2210,15 +2317,15 @@ public final class Model extends Animable {
 			if(l1 >= 50)
 			{
 				int i6 = (50 - i2) * modelIntArray4[l1 - i2];
-				anIntArray1678[l] = j + (l2 + ((anIntArray1668[i1] - l2) * i6 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (l3 + ((anIntArray1669[i1] - l3) * i6 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (l2 + ((anIntArray1668[i1] - l2) * i6 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (l3 + ((anIntArray1669[i1] - l3) * i6 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = l4 + ((anIntArray1634[i] - l4) * i6 >> 16);
 			}
 			if(j2 >= 50)
 			{
 				int j6 = (50 - i2) * modelIntArray4[j2 - i2];
-				anIntArray1678[l] = j + (l2 + ((anIntArray1668[k1] - l2) * j6 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (l3 + ((anIntArray1669[k1] - l3) * j6 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (l2 + ((anIntArray1668[k1] - l2) * j6 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (l3 + ((anIntArray1669[k1] - l3) * j6 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = l4 + ((anIntArray1636[i] - l4) * j6 >> 16);
 			}
 		}
@@ -2235,15 +2342,15 @@ public final class Model extends Animable {
 			if(i2 >= 50)
 			{
 				int k6 = (50 - j2) * modelIntArray4[i2 - j2];
-				anIntArray1678[l] = j + (i3 + ((anIntArray1668[j1] - i3) * k6 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (i4 + ((anIntArray1669[j1] - i4) * k6 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (i3 + ((anIntArray1668[j1] - i3) * k6 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (i4 + ((anIntArray1669[j1] - i4) * k6 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = i5 + ((anIntArray1635[i] - i5) * k6 >> 16);
 			}
 			if(l1 >= 50)
 			{
 				int l6 = (50 - j2) * modelIntArray4[l1 - j2];
-				anIntArray1678[l] = j + (i3 + ((anIntArray1668[i1] - i3) * l6 >> 16) << 9) / 50;
-				anIntArray1679[l] = k + (i4 + ((anIntArray1669[i1] - i4) * l6 >> 16) << 9) / 50;
+				anIntArray1678[l] = j + (i3 + ((anIntArray1668[i1] - i3) * l6 >> 16) << Client.log_view_dist) / 50;
+				anIntArray1679[l] = k + (i4 + ((anIntArray1669[i1] - i4) * l6 >> 16) << Client.log_view_dist) / 50;
 				anIntArray1680[l++] = i5 + ((anIntArray1634[i] - i5) * l6 >> 16);
 			}
 		}
@@ -2255,21 +2362,21 @@ public final class Model extends Animable {
 		int k7 = anIntArray1679[2];
 		if((j3 - j4) * (k7 - j7) - (i7 - j7) * (j5 - j4) > 0)
 		{
-			Texture.aBoolean1462 = false;
+			Rasterizer.clippedHorizontally = false;
 			if(l == 3)
 			{
 				if(j3 < 0 || j4 < 0 || j5 < 0 || j3 > DrawingArea.centerX || j4 > DrawingArea.centerX || j5 > DrawingArea.centerX)
-					Texture.aBoolean1462 = true;
+					Rasterizer.clippedHorizontally = true;
 				int l7;
 				if(anIntArray1637 == null)
 					l7 = 0;
 				else
 					l7 = anIntArray1637[i] & 3;
 				if(l7 == 0)
-					Texture.method374(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2]);
+					Rasterizer.method374(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2]);
 				else
 				if(l7 == 1)
-					Texture.method376(i7, j7, k7, j3, j4, j5, modelIntArray3[anIntArray1634[i]]);
+					Rasterizer.method376(i7, j7, k7, j3, j4, j5, modelIntArray3[anIntArray1634[i]]);
 				else
 				if(l7 == 2)
 				{
@@ -2277,7 +2384,7 @@ public final class Model extends Animable {
 					int k9 = anIntArray1643[j8];
 					int k10 = anIntArray1644[j8];
 					int k11 = anIntArray1645[j8];
-					Texture.method378(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2], anIntArray1668[k9], anIntArray1668[k10], anIntArray1668[k11], anIntArray1669[k9], anIntArray1669[k10], anIntArray1669[k11], anIntArray1670[k9], anIntArray1670[k10], anIntArray1670[k11], anIntArray1640[i]);
+					Rasterizer.method378(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2], anIntArray1668[k9], anIntArray1668[k10], anIntArray1668[k11], anIntArray1669[k9], anIntArray1669[k10], anIntArray1669[k11], anIntArray1670[k9], anIntArray1670[k10], anIntArray1670[k11], anIntArray1640[i]);
 				} else
 				if(l7 == 3)
 				{
@@ -2285,13 +2392,13 @@ public final class Model extends Animable {
 					int l9 = anIntArray1643[k8];
 					int l10 = anIntArray1644[k8];
 					int l11 = anIntArray1645[k8];
-					Texture.method378(i7, j7, k7, j3, j4, j5, anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[l9], anIntArray1668[l10], anIntArray1668[l11], anIntArray1669[l9], anIntArray1669[l10], anIntArray1669[l11], anIntArray1670[l9], anIntArray1670[l10], anIntArray1670[l11], anIntArray1640[i]);
+					Rasterizer.method378(i7, j7, k7, j3, j4, j5, anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[l9], anIntArray1668[l10], anIntArray1668[l11], anIntArray1669[l9], anIntArray1669[l10], anIntArray1669[l11], anIntArray1670[l9], anIntArray1670[l10], anIntArray1670[l11], anIntArray1640[i]);
 				}
 			}
 			if(l == 4)
 			{
 				if(j3 < 0 || j4 < 0 || j5 < 0 || j3 > DrawingArea.centerX || j4 > DrawingArea.centerX || j5 > DrawingArea.centerX || anIntArray1678[3] < 0 || anIntArray1678[3] > DrawingArea.centerX)
-					Texture.aBoolean1462 = true;
+					Rasterizer.clippedHorizontally = true;
 				int i8;
 				if(anIntArray1637 == null)
 					i8 = 0;
@@ -2299,15 +2406,15 @@ public final class Model extends Animable {
 					i8 = anIntArray1637[i] & 3;
 				if(i8 == 0)
 				{
-					Texture.method374(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2]);
-					Texture.method374(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1680[0], anIntArray1680[2], anIntArray1680[3]);
+					Rasterizer.method374(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2]);
+					Rasterizer.method374(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1680[0], anIntArray1680[2], anIntArray1680[3]);
 					return;
 				}
 				if(i8 == 1)
 				{
 					int l8 = modelIntArray3[anIntArray1634[i]];
-					Texture.method376(i7, j7, k7, j3, j4, j5, l8);
-					Texture.method376(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], l8);
+					Rasterizer.method376(i7, j7, k7, j3, j4, j5, l8);
+					Rasterizer.method376(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], l8);
 					return;
 				}
 				if(i8 == 2)
@@ -2316,8 +2423,8 @@ public final class Model extends Animable {
 					int i10 = anIntArray1643[i9];
 					int i11 = anIntArray1644[i9];
 					int i12 = anIntArray1645[i9];
-					Texture.method378(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2], anIntArray1668[i10], anIntArray1668[i11], anIntArray1668[i12], anIntArray1669[i10], anIntArray1669[i11], anIntArray1669[i12], anIntArray1670[i10], anIntArray1670[i11], anIntArray1670[i12], anIntArray1640[i]);
-					Texture.method378(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1680[0], anIntArray1680[2], anIntArray1680[3], anIntArray1668[i10], anIntArray1668[i11], anIntArray1668[i12], anIntArray1669[i10], anIntArray1669[i11], anIntArray1669[i12], anIntArray1670[i10], anIntArray1670[i11], anIntArray1670[i12], anIntArray1640[i]);
+					Rasterizer.method378(i7, j7, k7, j3, j4, j5, anIntArray1680[0], anIntArray1680[1], anIntArray1680[2], anIntArray1668[i10], anIntArray1668[i11], anIntArray1668[i12], anIntArray1669[i10], anIntArray1669[i11], anIntArray1669[i12], anIntArray1670[i10], anIntArray1670[i11], anIntArray1670[i12], anIntArray1640[i]);
+					Rasterizer.method378(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1680[0], anIntArray1680[2], anIntArray1680[3], anIntArray1668[i10], anIntArray1668[i11], anIntArray1668[i12], anIntArray1669[i10], anIntArray1669[i11], anIntArray1669[i12], anIntArray1670[i10], anIntArray1670[i11], anIntArray1670[i12], anIntArray1640[i]);
 					return;
 				}
 				if(i8 == 3)
@@ -2326,8 +2433,8 @@ public final class Model extends Animable {
 					int j10 = anIntArray1643[j9];
 					int j11 = anIntArray1644[j9];
 					int j12 = anIntArray1645[j9];
-					Texture.method378(i7, j7, k7, j3, j4, j5, anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[j10], anIntArray1668[j11], anIntArray1668[j12], anIntArray1669[j10], anIntArray1669[j11], anIntArray1669[j12], anIntArray1670[j10], anIntArray1670[j11], anIntArray1670[j12], anIntArray1640[i]);
-					Texture.method378(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[j10], anIntArray1668[j11], anIntArray1668[j12], anIntArray1669[j10], anIntArray1669[j11], anIntArray1669[j12], anIntArray1670[j10], anIntArray1670[j11], anIntArray1670[j12], anIntArray1640[i]);
+					Rasterizer.method378(i7, j7, k7, j3, j4, j5, anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[j10], anIntArray1668[j11], anIntArray1668[j12], anIntArray1669[j10], anIntArray1669[j11], anIntArray1669[j12], anIntArray1670[j10], anIntArray1670[j11], anIntArray1670[j12], anIntArray1640[i]);
+					Rasterizer.method378(i7, k7, anIntArray1679[3], j3, j5, anIntArray1678[3], anIntArray1634[i], anIntArray1634[i], anIntArray1634[i], anIntArray1668[j10], anIntArray1668[j11], anIntArray1668[j12], anIntArray1669[j10], anIntArray1669[j11], anIntArray1669[j12], anIntArray1670[j10], anIntArray1670[j11], anIntArray1670[j12], anIntArray1640[i]);
 				}
 			}
 		}
@@ -2361,7 +2468,7 @@ public final class Model extends Animable {
 	private int[] anIntArray1636;
 	public int anIntArray1637[];
 	private int[] anIntArray1638;
-	private int[] anIntArray1639;
+	private int[] face_alpha;
 	public int anIntArray1640[];
 	private int anInt1641;
 	private int anInt1642;
@@ -2379,8 +2486,8 @@ public final class Model extends Animable {
 	public int anInt1654;
 	private int[] anIntArray1655;
 	private int[] anIntArray1656;
-	public int anIntArrayArray1657[][];
-	public int anIntArrayArray1658[][];
+	public int vertexSkin[][];
+	public int triangleSkin[][];
 	public boolean aBoolean1659;
 	Class33 aClass33Array1660[];
 	private static Class21[] aClass21Array1661;
@@ -2411,16 +2518,16 @@ public final class Model extends Animable {
 	public static int anInt1686;
 	public static int anInt1687;
 	public static final int[] anIntArray1688 = new int[1000];
-	public static int modelIntArray1[];
-	public static int modelIntArray2[];
+	public static int SINE[];
+	public static int COSINE[];
 	private static int[] modelIntArray3;
 	private static int[] modelIntArray4;
 
 	static 
 	{
-		modelIntArray1 = Texture.anIntArray1470;
-		modelIntArray2 = Texture.anIntArray1471;
-		modelIntArray3 = Texture.anIntArray1482;
-		modelIntArray4 = Texture.anIntArray1469;
+		SINE = Rasterizer.SINE;
+		COSINE = Rasterizer.COSINE;
+		modelIntArray3 = Rasterizer.HSLtoRGB;
+		modelIntArray4 = Rasterizer.anIntArray1469;
 	}
 }
