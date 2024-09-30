@@ -3,18 +3,16 @@ package com.proxy;// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Decompiler options: packimports(3) 
 
 
-public final class Object3
-{
+public final class Object3 {
 
-	public Object3()
-	{
-	}
+    public Animable aClass30_Sub2_Sub4_814;
+    public int uid;
+    int anInt811;
+    int anInt812;
+    int anInt813;
+    int groundDecorUID;
+    byte aByte816;
 
-	int anInt811;
-	int anInt812;
-	int anInt813;
-	public Animable aClass30_Sub2_Sub4_814;
-	public int uid;
-	int groundDecorUID;
-	byte aByte816;
+    public Object3() {
+    }
 }

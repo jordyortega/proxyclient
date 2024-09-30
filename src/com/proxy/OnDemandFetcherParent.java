@@ -5,12 +5,10 @@ package com.proxy;// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 
 public class OnDemandFetcherParent {
 
-    public void method548(int i)
-    {
+    OnDemandFetcherParent() {
     }
 
-    OnDemandFetcherParent()
-    {
+    public void method548(int i) {
     }
 
 }

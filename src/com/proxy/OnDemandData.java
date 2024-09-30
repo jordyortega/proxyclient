@@ -5,15 +5,14 @@ package com.proxy;// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 
 public final class OnDemandData extends NodeSub {
 
-    public OnDemandData()
-    {
-        incomplete = true;
-    }
-
+    public int dataID;
     int dataType;
     byte buffer[];
     int ID;
     boolean incomplete;
     int loopCycle;
-	public int dataID;
+
+    public OnDemandData() {
+        incomplete = true;
+    }
 }

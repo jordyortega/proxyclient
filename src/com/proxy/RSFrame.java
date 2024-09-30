@@ -4,49 +4,50 @@ import java.awt.*;
 
 final class RSFrame extends Frame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6411404177667816019L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6411404177667816019L;
+    private final RSApplet rsApplet;
 
-	public RSFrame(RSApplet rsapplet, int width, int height, boolean undecorative, boolean resizable) {
-		rsApplet = rsapplet;
-		setTitle("Proxy Client");
-		setUndecorated(undecorative);
-		setBackground(Color.BLACK);
-		setVisible(true);
-		requestFocus();
-		toFront();
-		setResizable(Client.clientSize == 0 ? false : true);
-		setFocusTraversalKeysEnabled(false);
-		toFront();
-		Insets insets = getInsets();
-		setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
-		setLocationRelativeTo(null);
-	}
+    public RSFrame(RSApplet rsapplet, int width, int height, boolean undecorative, boolean resizable) {
+        rsApplet = rsapplet;
+        setTitle("Proxy Client");
+        setUndecorated(undecorative);
+        setBackground(Color.BLACK);
+        setVisible(true);
+        requestFocus();
+        toFront();
+        setResizable(Client.clientSize == 0 ? false : true);
+        setFocusTraversalKeysEnabled(false);
+        toFront();
+        Insets insets = getInsets();
+        setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
+        setLocationRelativeTo(null);
+    }
 
-	public Graphics getGraphics() {
-		Graphics g = super.getGraphics();
-		Insets insets = this.getInsets();
-		g.translate(insets.left ,insets.top);
-		return g;
-	}
-	public int getFrameWidth() {
-		Insets insets = this.getInsets();
-		return getWidth() - (insets.left + insets.right);
-	}
+    public Graphics getGraphics() {
+        Graphics g = super.getGraphics();
+        Insets insets = this.getInsets();
+        g.translate(insets.left, insets.top);
+        return g;
+    }
 
-	public int getFrameHeight() {
-		Insets insets = this.getInsets();
-		return getHeight() - (insets.top + insets.bottom);
-	}
-	public void update(Graphics g) {
-		rsApplet.update(g);
-	}
+    public int getFrameWidth() {
+        Insets insets = this.getInsets();
+        return getWidth() - (insets.left + insets.right);
+    }
 
-	public void paint(Graphics g) {
-		rsApplet.paint(g);
-	}
+    public int getFrameHeight() {
+        Insets insets = this.getInsets();
+        return getHeight() - (insets.top + insets.bottom);
+    }
 
-	private final RSApplet rsApplet;
+    public void update(Graphics g) {
+        rsApplet.update(g);
+    }
+
+    public void paint(Graphics g) {
+        rsApplet.paint(g);
+    }
 }

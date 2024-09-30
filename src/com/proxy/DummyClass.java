@@ -5,9 +5,8 @@ package com.proxy;// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 
 public final class DummyClass {
 
-	public DummyClass()
-	{
-	}
+    public static DummyClass cache[];
 
-	public static DummyClass cache[];
+    public DummyClass() {
+    }
 }

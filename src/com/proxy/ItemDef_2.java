@@ -7,29 +7,29 @@ import java.io.IOException;
 
 public class ItemDef_2 {
 
-	
-	public static void Items(int i) {
-		ItemDef itemDef = ItemDef.forID(i);
-		switch (i) {
-		case 4151:
-			dumpInfo(i);
-			System.out.println("hi");
-			break;
 
-		case 15051:
-			itemDef.itemActions = new String[5];
-			itemDef.itemActions[1] = "Wield";
-			itemDef.modelZoom = 789;
-			itemDef.modelRotationY = 69;
-			itemDef.modelRotationX = 1743;
-			itemDef.modelOffset1 = -4;
-			itemDef.modelOffset2 = -3;
-			itemDef.modelID = 34411;
-			itemDef.anInt165 = 6775; // male wield model
-			itemDef.anInt200 = 14112; // femArmModel
-			itemDef.name = "Slayer helmet";
-			itemDef.description = "You don't want to wear it inside-out.".getBytes();// examine.
-			break;
+    public static void Items(int i) {
+        ItemDef itemDef = ItemDef.forID(i);
+        switch (i) {
+            case 4151:
+                dumpInfo(i);
+                System.out.println("hi");
+                break;
+
+            case 15051:
+                itemDef.itemActions = new String[5];
+                itemDef.itemActions[1] = "Wield";
+                itemDef.modelZoom = 789;
+                itemDef.modelRotationY = 69;
+                itemDef.modelRotationX = 1743;
+                itemDef.modelOffset1 = -4;
+                itemDef.modelOffset2 = -3;
+                itemDef.modelID = 34411;
+                itemDef.anInt165 = 6775; // male wield model
+                itemDef.anInt200 = 14112; // femArmModel
+                itemDef.name = "Slayer helmet";
+                itemDef.description = "You don't want to wear it inside-out.".getBytes();// examine.
+                break;
 			
 		/*case 405:
 			itemDef.name = "2.5m Cash";
@@ -90,89 +90,89 @@ public class ItemDef_2 {
 			itemDef.modelZoom = 900;
 			break;*/
 
-		}
-	}
+        }
+    }
 
-	public static void dumpInfo(int item) {
-		try {
-			ItemDef itemDef = ItemDef.forID(item);
-			System.out.println();
-			System.out.println("Name : "+itemDef.name);
-			System.out.println("Model : " + itemDef.modelID);
-			System.out.println("Zoom : " + itemDef.modelZoom);
-			System.out.println("RotY : " + itemDef.modelRotationY);
-			System.out.println("RotX : " + itemDef.modelRotationX);
-			System.out.println("Offset1 : "+itemDef.modelOffset1);
-			System.out.println("Offset2 : "+itemDef.modelOffset2);
-			System.out.println("anInt165(MALE WIELD) : "+itemDef.anInt165);
-			System.out.println("anInt200(FEMALE WIELD) : "+itemDef.anInt200);
-			System.out.println();
-			System.out.println("Original Color[0] : "
-					+ itemDef.originalModelColors[0]);
-			System.out.println("Modified Color[0] : "
-					+ itemDef.modifiedModelColors[0]);
-			System.out.println("Original Color[1] : "
-					+ itemDef.originalModelColors[1]);
-			System.out.println("Modified Color[1] : "
-					+ itemDef.modifiedModelColors[1]);
-			System.out.println("Original Color[2] : "
-					+ itemDef.originalModelColors[2]);
-			System.out.println("Modified Color[2] : "
-					+ itemDef.modifiedModelColors[2]);
-			System.out.println();
-			System.out.println("itemAction0 : "+itemDef.itemActions[0]);
-			System.out.println("itemAction1 : "+itemDef.itemActions[1]);
-			System.out.println("itemAction2 : "+itemDef.itemActions[2]);
-			System.out.println("itemAction3 : "+itemDef.itemActions[3]);
-			System.out.println("itemAction4 : "+itemDef.itemActions[4]);
-		} catch (Exception e) {
+    public static void dumpInfo(int item) {
+        try {
+            ItemDef itemDef = ItemDef.forID(item);
+            System.out.println();
+            System.out.println("Name : " + itemDef.name);
+            System.out.println("Model : " + itemDef.modelID);
+            System.out.println("Zoom : " + itemDef.modelZoom);
+            System.out.println("RotY : " + itemDef.modelRotationY);
+            System.out.println("RotX : " + itemDef.modelRotationX);
+            System.out.println("Offset1 : " + itemDef.modelOffset1);
+            System.out.println("Offset2 : " + itemDef.modelOffset2);
+            System.out.println("anInt165(MALE WIELD) : " + itemDef.anInt165);
+            System.out.println("anInt200(FEMALE WIELD) : " + itemDef.anInt200);
+            System.out.println();
+            System.out.println("Original Color[0] : "
+                    + itemDef.originalModelColors[0]);
+            System.out.println("Modified Color[0] : "
+                    + itemDef.modifiedModelColors[0]);
+            System.out.println("Original Color[1] : "
+                    + itemDef.originalModelColors[1]);
+            System.out.println("Modified Color[1] : "
+                    + itemDef.modifiedModelColors[1]);
+            System.out.println("Original Color[2] : "
+                    + itemDef.originalModelColors[2]);
+            System.out.println("Modified Color[2] : "
+                    + itemDef.modifiedModelColors[2]);
+            System.out.println();
+            System.out.println("itemAction0 : " + itemDef.itemActions[0]);
+            System.out.println("itemAction1 : " + itemDef.itemActions[1]);
+            System.out.println("itemAction2 : " + itemDef.itemActions[2]);
+            System.out.println("itemAction3 : " + itemDef.itemActions[3]);
+            System.out.println("itemAction4 : " + itemDef.itemActions[4]);
+        } catch (Exception e) {
 
-		}
-	}
+        }
+    }
 
-	private static String arrayToString(String[] arr) {
-		String toReturn = "";
-		for (String s : arr) {
-			if (s != null) {
-				toReturn += s + "\n";
-			}
-		}
-		return toReturn;
-	}
+    private static String arrayToString(String[] arr) {
+        String toReturn = "";
+        for (String s : arr) {
+            if (s != null) {
+                toReturn += s + "\n";
+            }
+        }
+        return toReturn;
+    }
 
-	private static String arrayToString(int[] arr) {
-		String toReturn = "";
-		for (int s : arr) {
-			toReturn += s + "\t";
-		}
-		return toReturn;
-	}
+    private static String arrayToString(int[] arr) {
+        String toReturn = "";
+        for (int s : arr) {
+            toReturn += s + "\t";
+        }
+        return toReturn;
+    }
 
-	public static void dumpItem(int item) {
-		ItemDef itemDef = ItemDef.forID(item);
-		String userHomeFolder = System.getProperty("user.home");
-		File textFile = new File(userHomeFolder, +item + ".txt");
-		String[] data = new String[10];
-		data[0] = "itemDef.modelID = " + itemDef.modelID + ";";
-		data[1] = "itemDef.modelZoom = " + itemDef.modelZoom + ";";
-		data[2] = "itemDef.modelRotationX = " + itemDef.modelRotationX + ";";
-		data[3] = "itemDef.modelRotationY = " + itemDef.modelRotationY + ";";
-		data[4] = "itemDef.anInt165 = " + itemDef.anInt165 + ";";
-		data[5] = "itemDef.anInt200 = " + itemDef.anInt200 + ";";
-		data[6] = "itemDef.modelOffset1 = " + itemDef.modelOffset1 + ";";
-		data[7] = "itemDef.modelOffset2 = " + itemDef.modelOffset2 + ";";
-		data[8] = "Item actions : " + arrayToString(itemDef.itemActions);
-		data[9] = "Original colors : "+ arrayToString(itemDef.originalModelColors);
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
-			for (String s : data) {
-				out.write(s);
-				out.newLine();
-			}
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void dumpItem(int item) {
+        ItemDef itemDef = ItemDef.forID(item);
+        String userHomeFolder = System.getProperty("user.home");
+        File textFile = new File(userHomeFolder, +item + ".txt");
+        String[] data = new String[10];
+        data[0] = "itemDef.modelID = " + itemDef.modelID + ";";
+        data[1] = "itemDef.modelZoom = " + itemDef.modelZoom + ";";
+        data[2] = "itemDef.modelRotationX = " + itemDef.modelRotationX + ";";
+        data[3] = "itemDef.modelRotationY = " + itemDef.modelRotationY + ";";
+        data[4] = "itemDef.anInt165 = " + itemDef.anInt165 + ";";
+        data[5] = "itemDef.anInt200 = " + itemDef.anInt200 + ";";
+        data[6] = "itemDef.modelOffset1 = " + itemDef.modelOffset1 + ";";
+        data[7] = "itemDef.modelOffset2 = " + itemDef.modelOffset2 + ";";
+        data[8] = "Item actions : " + arrayToString(itemDef.itemActions);
+        data[9] = "Original colors : " + arrayToString(itemDef.originalModelColors);
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(textFile));
+            for (String s : data) {
+                out.write(s);
+                out.newLine();
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

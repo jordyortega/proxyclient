@@ -1,12 +1,16 @@
 package com.proxy;
 
 import javax.sound.midi.*;
-import java.io.*;
- 
-public final class MidiPlayer implements Receiver
-{
-    public MidiPlayer() throws Exception
-    {
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+public final class MidiPlayer implements Receiver {
+    private final int[] channels = new int[16];
+    private final Receiver receiver;
+    private final Sequencer sequencer;
+    private int volume;
+
+    public MidiPlayer() throws Exception {
         resetChannels();
         receiver = MidiSystem.getReceiver();
         sequencer = MidiSystem.getSequencer(false);
@@ -14,160 +18,141 @@ public final class MidiPlayer implements Receiver
         sequencer.open();
         setTick(-1L);
     }
- 
-    public synchronized void setVolume(int velocity, int volume)
-    {
+
+    public synchronized void setVolume(int velocity, int volume) {
         setVolume(velocity, volume, -1L);
     }
- 
-    public void play(Sequence sequence, boolean loop, int volume)
-    {
-        try
-        {
-        	sequencer.close();
-        	resetChannels();
-        	try {
-				sequencer.open();
-		        setTick(-1L);
-			} catch (MidiUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+    public void play(Sequence sequence, boolean loop, int volume) {
+        try {
+            sequencer.close();
+            resetChannels();
+            try {
+                sequencer.open();
+                setTick(-1L);
+            } catch (MidiUnavailableException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             sequencer.setSequence(sequence);
-            sequencer.setLoopCount(loop ? -1:0);
+            sequencer.setLoopCount(loop ? -1 : 0);
             setVolume(0, volume, -1L);
             sequencer.start();
+        } catch (InvalidMidiDataException ex) {
         }
-        catch (InvalidMidiDataException ex) { }
     }
-	
-	public void play(byte[] data, boolean loop, int volume) {
-		try {
-			sequencer.close();
-        	resetChannels();
-        	try {
-        		sequencer.getTransmitter().setReceiver(this);
-				sequencer.open();
-		        setTick(-1L);
-			} catch (MidiUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Sequence sequence = MidiSystem.getSequence(new ByteArrayInputStream(data));
-			sequencer.setSequence(sequence);
-			sequencer.setLoopCount(loop ? -1 : 0);
-			setVolume(0, volume, -1L);
-			sequencer.start();
-		} catch (InvalidMidiDataException ex) {
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public boolean playing()
-    {
-        if(sequencer == null )
+
+    public void play(byte[] data, boolean loop, int volume) {
+        try {
+            sequencer.close();
+            resetChannels();
+            try {
+                sequencer.getTransmitter().setReceiver(this);
+                sequencer.open();
+                setTick(-1L);
+            } catch (MidiUnavailableException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Sequence sequence = MidiSystem.getSequence(new ByteArrayInputStream(data));
+            sequencer.setSequence(sequence);
+            sequencer.setLoopCount(loop ? -1 : 0);
+            setVolume(0, volume, -1L);
+            sequencer.start();
+        } catch (InvalidMidiDataException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean playing() {
+        if (sequencer == null)
             return false;
         return sequencer.isRunning();
     }
- 
-    public void stop()
-    {
+
+    public void stop() {
         sequencer.stop();
         setTick(-1L);
     }
- 
-    public void resetVolume(int volume)
-    {
+
+    public void resetVolume(int volume) {
         resetVolume(volume, -1L);
     }
- 
-    private void setTick(long tick)
-    {
+
+    private void setTick(long tick) {
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 176, 123, 0, tick);
- 
+
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 176, 120, 0, tick);
- 
+
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 176, 121, 0, tick);
- 
+
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 176, 0, 0, tick);
- 
+
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 176, 32, 0, tick);
- 
+
         for (int i = 0; i != 16; ++i)
             sendMessage(i + 192, 0, 0, tick);
- 
+
     }
- 
-    private void sendMessage(int status, int data1, int data2, long tick)
-    {
-        try
-        {
+
+    private void sendMessage(int status, int data1, int data2, long tick) {
+        try {
             ShortMessage msg = new ShortMessage();
             msg.setMessage(status, data1, data2);
             receiver.send(msg, tick);
+        } catch (InvalidMidiDataException ex) {
         }
-        catch (InvalidMidiDataException ex) { }
     }
- 
-    public void closeImpl()
-    {
+
+    public void closeImpl() {
         sequencer.close();
         receiver.close();
     }
- 
-    private void resetVolume(int volume, long tick)
-    {
+
+    private void resetVolume(int volume, long tick) {
         this.volume = volume;
         resetChannels();
         setVolume(tick);
     }
- 
-    private void setVolume(long tick)
-    {
-        for (int i = 0; i != 16; ++i)
-        {
+
+    private void setVolume(long tick) {
+        for (int i = 0; i != 16; ++i) {
             int volume = getVolume(i);
             sendMessage(i + 176, 7, volume >>> 7, tick);
             sendMessage(i + 176, 39, volume & 0x7f, tick);
         }
- 
+
     }
- 
-    private void setVolume(int velocity, int volume, long tick)
-    {
+
+    private void setVolume(int velocity, int volume, long tick) {
         volume = (int) ((double) volume * Math.pow(0.1D, (double) velocity * 0.0005D) + 0.5D);
         if (this.volume == volume)
             return;
- 
+
         this.volume = volume;
         setVolume(tick);
     }
- 
-    private int getVolume(int channel)
-    {
+
+    private int getVolume(int channel) {
         channel = channels[channel];
         return (int) (Math.sqrt((double) (channel = ((channel * volume) >>> 8) * channel)) + 0.5D);
     }
- 
-    private void resetChannels()
-    {
+
+    private void resetChannels() {
         for (int i = 0; i != 16; ++i)
             channels[i] = 12800;
- 
+
     }
- 
-    private boolean check(int status, int data1, int data2, long tick)
-    {
-        if ((status & 0xf0) == 176)
-        {
-            if (data1 == 121)
-            {
+
+    private boolean check(int status, int data1, int data2, long tick) {
+        if ((status & 0xf0) == 176) {
+            if (data1 == 121) {
                 sendMessage(status, data1, data2, tick);
                 int channel = status & 0xf;
                 channels[channel] = 12800;
@@ -176,14 +161,13 @@ public final class MidiPlayer implements Receiver
                 sendMessage(status, 39, volume & 0x7f, tick);
                 return true;
             }
-            if (data1 == 7 || data1 == 39)
-            {
+            if (data1 == 7 || data1 == 39) {
                 int channel = status & 0xf;
                 if (data1 == 7)
                     channels[channel] = (channels[channel] & 0x7f) | (data2 << 7);
                 else
                     channels[channel] = (channels[channel] & 0x3f80) | data2;
- 
+
                 int volume = getVolume(channel);
                 sendMessage(status, 7, volume >>> 7, tick);
                 sendMessage(status, 39, volume & 0x7f, tick);
@@ -192,33 +176,22 @@ public final class MidiPlayer implements Receiver
         }
         return false;
     }
- 
-    public synchronized void send(MidiMessage msg, long tick)
-    {
+
+    public synchronized void send(MidiMessage msg, long tick) {
         byte[] data = msg.getMessage();
         if (data.length < 3 || !check(data[0], data[1], data[2], tick))
             receiver.send(msg, tick);
- 
+
     }
- 
-    public void close()
-    {
+
+    public void close() {
     }
- 
-    protected void finalize() throws Throwable
-    {
-        try
-        {
+
+    protected void finalize() throws Throwable {
+        try {
             closeImpl();
-        }
-        finally
-        {
+        } finally {
             super.finalize();
         }
     }
- 
-    private int volume;
-    private final int[] channels = new int[16];
-    private final Receiver receiver;
-    private final Sequencer sequencer;
 }

@@ -3,15 +3,13 @@ package com.proxy;// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Decompiler options: packimports(3) 
 
 
-final class Class33
-{
+final class VertexNormal {
 
-	public Class33()
-	{
-	}
+    int x;
+    int y;
+    int z;
+    int magnitude;
 
-	int anInt602;
-	int anInt603;
-	int anInt604;
-	int anInt605;
+    public VertexNormal() {
+    }
 }

@@ -1,6 +1,6 @@
 package com.proxy;
 
-public class rsDrawingArea extends DrawingArea{
+public class rsDrawingArea extends DrawingArea {
 
     public static int height;
     public static int bottomX;
@@ -12,8 +12,14 @@ public class rsDrawingArea extends DrawingArea{
     public static int bottomY = 0;
     public static int[] anIntArray1405;
 
+    static {
+        bottomX = 0;
+        topX = 0;
+        topY = 0;
+    }
+
     public static void drawBox(int drawX, int drawY, int boxWidth, int boxHeight,
-            int color) {
+                               int color) {
         drawHorizontalLine(drawX, drawY, boxWidth, color);
         drawHorizontalLine(drawX, drawY + boxHeight - 1, boxWidth, color);
         drawVerticalLine(drawX, drawY, boxHeight, color);
@@ -29,7 +35,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void method1417(int drawX, int drawY, int width, int height,
-            int color) {
+                                  int color) {
         width -= drawX;
         height -= drawY;
         if (height == 0) {
@@ -115,7 +121,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void method1419(int drawX, int drawY, int color, int[] is,
-            int[] is_15_) {
+                                  int[] is_15_) {
         int curPixel = drawX + drawY * width;
         for (drawY = 0; drawY < is.length; drawY++) {
             int i_17_ = curPixel + is[drawY];
@@ -133,7 +139,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void drawVerticalLineAlpha(int drawX, int drawY, int lineHeightI, int color,
-            int alpha) {
+                                             int alpha) {
         if (drawX >= topX && drawX < bottomX) {
             if (drawY < topY) {
                 lineHeightI -= topY - drawY;
@@ -206,7 +212,7 @@ public class rsDrawingArea extends DrawingArea{
             }
             while (i_40_ < i_35_) {
                 for (/**/; i_45_ <= i_41_ || i_44_ <= i_41_;
-                        i_45_ += i_42_++ + i_42_) {
+                         i_45_ += i_42_++ + i_42_) {
                     i_44_ += i_42_ + i_42_;
                 }
                 int i_46_ = i - i_42_ + 1;
@@ -232,7 +238,7 @@ public class rsDrawingArea extends DrawingArea{
             i_45_ -= i_43_;
             while (i_40_ < i_39_) {
                 for (/**/; i_45_ > i_41_ && i_44_ > i_41_;
-                        i_44_ -= i_42_ + i_42_) {
+                         i_44_ -= i_42_ + i_42_) {
                     i_45_ -= i_42_-- + i_42_;
                 }
                 int i_50_ = i - i_42_;
@@ -306,9 +312,8 @@ public class rsDrawingArea extends DrawingArea{
         }
     }
 
-
     public static void drawHorizontalLineAlpha(int i, int i_89_, int i_90_, int i_91_,
-            int i_92_) {
+                                               int i_92_) {
         if (i_89_ >= topY && i_89_ < bottomY) {
             if (i < topX) {
                 i_90_ -= topX - i;
@@ -356,7 +361,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void drawBoxAlpha(int drawX, int drawY, int boxWidth, int boxHeight,
-            int boxColor, int alphaI) {
+                                    int boxColor, int alphaI) {
         drawHorizontalLineAlpha(drawX, drawY, boxWidth, boxColor, alphaI);
         drawHorizontalLineAlpha(drawX, drawY + boxHeight - 1, boxWidth, boxColor, alphaI);
         if (boxHeight >= 3) {
@@ -366,7 +371,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void method1434(int i, int i_114_, int i_115_, int i_116_,
-            int i_117_) {
+                                  int i_117_) {
         if (i_117_ != 0) {
             if (i_117_ == 256) {
                 method1425(i, i_114_, i_115_, i_116_);
@@ -397,7 +402,7 @@ public class rsDrawingArea extends DrawingArea{
                 }
                 while (i_124_ < i_114_) {
                     for (/**/; i_129_ <= i_125_ || i_128_ <= i_125_;
-                            i_129_ += i_126_++ + i_126_) {
+                             i_129_ += i_126_++ + i_126_) {
                         i_128_ += i_126_ + i_126_;
                     }
                     int i_130_ = i - i_126_ + 1;
@@ -427,7 +432,7 @@ public class rsDrawingArea extends DrawingArea{
                 i_129_ -= i_127_;
                 while (i_124_ < i_123_) {
                     for (/**/; i_129_ > i_125_ && i_128_ > i_125_;
-                            i_128_ -= i_126_ + i_126_) {
+                             i_128_ -= i_126_ + i_126_) {
                         i_129_ -= i_126_-- + i_126_;
                     }
                     int i_138_ = i - i_126_;
@@ -455,7 +460,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void fillBoxAlpha(int i, int i_146_, int i_147_, int i_148_,
-            int i_149_, int i_150_) {
+                                    int i_149_, int i_150_) {
         if (i < topX) {
             i_147_ -= topX - i;
             i = topX;
@@ -492,7 +497,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void method1437(int drawX, int drawY, int boxWidth, int boxHeight,
-            int color, int alpha) {
+                                  int color, int alpha) {
         int i_162_ = 0;
         int i_163_ = 65536 / boxHeight;
         if (drawX < topX) {
@@ -530,7 +535,7 @@ public class rsDrawingArea extends DrawingArea{
     }
 
     public static void fillBox(int drawX, int drawY, int boxWidth, int boxHeight,
-            int color) {
+                               int color) {
         if (drawX < topX) {
             boxWidth -= topX - drawX;
             drawX = topX;
@@ -553,11 +558,5 @@ public class rsDrawingArea extends DrawingArea{
             }
             pixelOffset += widthOffsets;
         }
-    }
-
-    static {
-        bottomX = 0;
-        topX = 0;
-        topY = 0;
     }
 }
