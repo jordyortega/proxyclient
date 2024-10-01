@@ -771,7 +771,9 @@ public final class ItemDef {
                 anInt173 = stream.readUnsignedWord();
             else if (i == 95)
                 anInt204 = stream.readUnsignedWord();
-            else if (i == 97)
+            else if (i== 96) {
+                int anInt800 = stream.readUnsignedByte();
+            }else if (i == 97)
                 certID = stream.readUnsignedWord();
             else if (i == 98)
                 certTemplateID = stream.readUnsignedWord();
