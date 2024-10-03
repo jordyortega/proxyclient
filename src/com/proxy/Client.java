@@ -11068,8 +11068,13 @@ public class Client extends RSApplet {
             drawTooltip();
         } else if (menuScreenArea == 0 && clientSize == 0)
             drawMenu();
-        if (anInt1055 == 1)
-            multiOverlay.drawSprite(472, 296);
+        if (anInt1055 == 1) {
+            if(clientSize == 0) {
+                multiOverlay.drawSprite(472, 296);
+            } else {
+                multiOverlay.drawSprite(clientWidth - 35, 191);
+            }
+        }
         if (fpsOn) {
             char c = '\u01FB';
             int k = 20;
